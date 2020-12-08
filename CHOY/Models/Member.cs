@@ -8,7 +8,7 @@ using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
 
-namespace Demo.Models
+namespace CHOY.Models
 {
     public class Member
     {

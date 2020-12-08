@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-namespace Demo.Models
+namespace CHOY.Models
 {
     public class Bulletin: IValidatableObject
     {
