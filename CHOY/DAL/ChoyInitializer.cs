@@ -126,31 +126,6 @@ namespace CHOY.DAL
       boards.ForEach(s => context.Boards.Add(s));
       context.SaveChanges();
 
-      List<BoardRecords> boardrecords = new List<BoardRecords>
-      {
-        new BoardRecords
-        {
-            ActionID="A000000001",
-            BoardID="B0001",
-            Code="             "
-          },
-        new BoardRecords
-        {
-            ActionID="A000000002",
-            BoardID="B0001",
-            Code="           "
-        },
-        new BoardRecords
-        {
-            ActionID="A000000003",
-            BoardID="B0001",
-            Code=""
-        }
-      };
-
-      boardrecords.ForEach(s => context.BoardRecords.Add(s));
-      context.SaveChanges();
-
       List<Bulletin> bulletins = new List<Bulletin>
       {
         new Bulletin
@@ -174,21 +149,21 @@ namespace CHOY.DAL
             GroupName="小圈圈",
             MemberID="M0001"
         },
-          new Group
+        new Group
         {
             GroupID="G0002",
             GroupName="Java們",
             MemberID="M0001"
         }
           ,
-          new Group
+        new Group
         {
             GroupID="G0003",
             GroupName="我的英文好夥伴",
             MemberID="M0002"
         }
             ,
-          new Group
+        new Group
         {
             GroupID="G0004",
             GroupName="我的中文好夥伴",

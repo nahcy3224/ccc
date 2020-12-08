@@ -15,7 +15,6 @@ namespace CHOY.DAL
     }
 
     public DbSet<Board> Boards { get; set; }
-    public DbSet<BoardRecords> BoardRecords { get; set; }
     public DbSet<Bulletin> Bulletins { get; set; }
     public DbSet<Group> Groups { get; set; }
     public DbSet<GroupMember> GroupMembers { get; set; }
