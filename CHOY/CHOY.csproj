@@ -111,8 +111,22 @@
     <Content Include="Global.asax" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Code\Auth\ChoyPassword.cs" />
+    <Compile Include="App_Code\Auth\ChoySession.cs" />
+    <Compile Include="App_Code\Auth\Jwt\JwsAlgorithm.cs" />
+    <Compile Include="App_Code\Auth\Jwt\SimpleJws.cs" />
+    <Compile Include="App_Code\Auth\MemberSystem.cs" />
+    <Compile Include="App_Code\Common\Base64.cs" />
+    <Compile Include="App_Code\Common\Hash\HashAlg.cs" />
+    <Compile Include="App_Code\Common\Hash\HmacAlg.cs" />
+    <Compile Include="App_Code\Common\Hash\HS256.cs" />
+    <Compile Include="App_Code\Common\Hash\SHA256.cs" />
+    <Compile Include="App_Code\Common\TimeConverter.cs" />
+    <Compile Include="App_Code\Common\Validator.cs" />
+    <Compile Include="App_Code\Env.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="DAL\ChoyContext.cs" />
     <Compile Include="DAL\ChoyInitializer.cs" />
@@ -131,6 +145,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\img4.jpg" />
+    <Content Include="Images\logo_dg_line.png" />
     <Content Include="Views\web.config" />
     <None Include="packages.config" />
     <Content Include="Web.config" />
@@ -149,8 +165,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Code\" />
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Home\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
