@@ -7,6 +7,8 @@ using System.Web.Routing;
 using System.Web.Security;
 using System.Web.SessionState;
 using System.Web.Http;
+using CHOY.DAL;
+using System.Data.Entity;
 
 namespace CHOY
 {
@@ -17,7 +19,10 @@ namespace CHOY
             // 應用程式啟動時執行的程式碼
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);            
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            // Database Initialization
+            Database.SetInitializer<ChoyContext>(new ChoyInitializer());
         }
     }
 }

@@ -87,3 +87,7 @@ E:\ProjectChoy\final\CHOY\bin\zh-Hant\System.Web.Http.WebHost.resources.dll
 E:\ProjectChoy\final\CHOY\obj\Debug\CHOY.csproj.CopyComplete
 E:\ProjectChoy\final\CHOY\obj\Debug\CHOY.dll
 E:\ProjectChoy\final\CHOY\obj\Debug\CHOY.pdb
+E:\ProjectChoy\final\CHOY\bin\EntityFramework.dll
+E:\ProjectChoy\final\CHOY\bin\EntityFramework.SqlServer.dll
+E:\ProjectChoy\final\CHOY\bin\EntityFramework.xml
+E:\ProjectChoy\final\CHOY\bin\EntityFramework.SqlServer.xml

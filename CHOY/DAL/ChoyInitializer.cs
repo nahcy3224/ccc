@@ -103,24 +103,24 @@ namespace CHOY.DAL
       {
         new Board
         {
-            BoardID="B0001",
-            ProjectID="P0001",
-            MemberIDOwner="M0001",
-            DeleteAt=null
+          BoardID="B0001",
+          ProjectID="P0001",
+          MemberIDOwner="M0001",
+          DeleteAt=null
         },
           new Board
         {
-            BoardID="B0002",
-            ProjectID="P0001",
-            MemberIDOwner="M0001",
-            DeleteAt=null
+          BoardID="B0002",
+          ProjectID="P0001",
+          MemberIDOwner="M0001",
+          DeleteAt=null
         },
             new Board
         {
-            BoardID="B0003",
-            ProjectID="P0001",
-            MemberIDOwner="M0001",
-            DeleteAt=null
+          BoardID="B0003",
+          ProjectID="P0001",
+          MemberIDOwner="M0001",
+          DeleteAt=null
         }
       };
       boards.ForEach(s => context.Boards.Add(s));
@@ -130,11 +130,11 @@ namespace CHOY.DAL
       {
         new Bulletin
         {
-            BulletinID = "N0001",
-            PublishStart = new DateTime(2020,12,11,0,0,0),
-            PublishEnd =  new DateTime(2020,12,18,0,0,0),
-            EditTime=DateTime.Now,
-            Content=" "
+          BulletinID = "N0001",
+          PublishStart = new DateTime(2020,12,11,0,0,0),
+          PublishEnd =  new DateTime(2020,12,18,0,0,0),
+          EditTime=DateTime.Now,
+          Content=""
         }
       };
 
@@ -145,29 +145,29 @@ namespace CHOY.DAL
       {
         new Group
         {
-            GroupID="G0001",
-            GroupName="小圈圈",
-            MemberID="M0001"
+          GroupID="G0001",
+          GroupName="小圈圈",
+          MemberID="M0001"
         },
         new Group
         {
-            GroupID="G0002",
-            GroupName="Java們",
-            MemberID="M0001"
+          GroupID="G0002",
+          GroupName="Java們",
+          MemberID="M0001"
         }
           ,
         new Group
         {
-            GroupID="G0003",
-            GroupName="我的英文好夥伴",
-            MemberID="M0002"
+          GroupID="G0003",
+          GroupName="我的英文好夥伴",
+          MemberID="M0002"
         }
             ,
         new Group
         {
-            GroupID="G0004",
-            GroupName="我的中文好夥伴",
-            MemberID="M0003"
+          GroupID="G0004",
+          GroupName="我的中文好夥伴",
+          MemberID="M0003"
         }
       };
       groups.ForEach(s => context.Groups.Add(s));

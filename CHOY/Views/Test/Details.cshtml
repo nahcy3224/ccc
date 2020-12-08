@@ -1,0 +1,114 @@
+﻿@model CHOY.Models.Member
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Member</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Psw)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Psw)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NickName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NickName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bday)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bday)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateAt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProfilePic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProfilePic)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImageMimeType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImageMimeType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PerCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PerCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsSuspended)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsSuspended)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastLogInTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastLogInTime)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MemberID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
