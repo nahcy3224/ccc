@@ -1,0 +1,192 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_home.cshtml";
+}
+
+<div class="page-container">
+
+    <div class="hp-inner" id="page_home">
+        <div class="">
+            <div class="animation-back board-back">
+                <div class="slogen1"><p>Note By Any Way</p></div>
+                <div class="slogen2"><p>You Want</p></div>
+                <div class="btn_start btn" id="go_btn"><span>GO</span></div>
+            </div>
+
+            <div class="bulletin_show_box">
+                @*@Html.Action("_ShowBul", "Bulletins")*@
+            </div>
+        </div>
+    </div>
+
+    <div class="" id="page_check">
+        <div class=" home_grid">
+            <form class="board_back flex_out" method="post" action="/Auth/Register" onsubmit="return handleRegister()">
+                @*@using (Html.BeginForm("Register", "Auth", FormMethod.Post, new { @class = "board_back flex_out" }))*@
+                @*{*@
+                <div class="check_box">
+                    <div>
+                        Set password
+                    </div>
+                    <div class="flex">
+                        <label for="PasswordForSet" class="register_label">Password</label>
+                        <input type="Password" id="PasswordForSet" name="Password">
+                    </div>
+                    <div class="flex">
+                        <label for="confirmPwd" class="register_label">Password Confirm</label>
+                        <input type="Password" id="confirmPwd" name="confirmPwd">
+                    </div>
+                    <span id="errorMessagesForSetPassword" class="error_message"></span>
+                    <div class="flex">
+                        <input type="Submit" value="Submit" class=" input_btn btn_sub">
+                        <!-- <input type="button" value="Reset" class="input_btn"> -->
+                    </div>
+                </div>
+                @*}*@
+            </form>
+        </div>
+    </div>
+
+
+    <div class="" id="page_reg">
+        <div class="register_box">
+            <h2 class="">Become Member</h2>
+            <form method="post" action="api/auth/verifyEmailAddress" onsubmit="return handleVerifyEmailAddress()">
+                @* @using (Html.BeginForm("Register", "Auth", FormMethod.Post))
+                    { *@
+                <div class="flex_out">
+                    <div class="flex">
+                        <label for="Email" class="register_label">Email</label>
+                        <input type="email" id="Email" name="Email" placeholder="">
+                    </div>
+
+                    <div class="flex">
+                        <label for="UserName" class="register_label">Username</label>
+                        <input type="text" register_grid id="UserName" name="UserName">
+                    </div>
+
+                    <div class="flex">
+                        <label for="Gender" class="register_label">Gender</label>
+                        <div>
+                            <input type="radio" name="Gender" value="1" id="grnder_0" checked>
+                            <label for="grnder_0">Male</label>
+                            <input type="radio" name="Gender" value="0" id="grnder_1">
+                            <label for="grnder_1">Female</label>
+                        </div>
+                    </div>
+
+                    <div class="flex">
+                        <label for="Birthday" class="register_label">Birthday</label>
+                        <input type="date" id="Birthday" name="Birthday">
+                    </div>
+
+                    <div class="register_term">
+                        <input type="checkbox" id="agree" name="agree" value="agree">
+                        <label for="agree">I have read and understood <a href="">the terms and conditions</a>.</label>
+                    </div>
+                    <span id="errorMessagesForRegister" class="error_message"></span>
+
+                    <div class="flex">
+                        <input type="submit" value="Submit" class="input_btn btn_sub">
+                        <!-- <input type="button" value="Reset" class="input_btn"> -->
+                    </div>
+                </div>
+                @* } *@
+            </form>
+        </div>
+    </div>
+
+    <div class="" id="page_login">
+        <div class="register_box">
+            <!-- <div class="login_position"> -->
+            <h2>LOGIN</h2>
+            <form method="post" action="/api/auth/login" onsubmit="return handleLogin()">
+                @* @using (Html.BeginForm("Login", "Auth", FormMethod.Post))
+                    {
+                      @Html.AntiForgeryToken() *@
+                <div class="flex_out">
+
+                    <div class="flex">
+                        <label for="Account" class="register_label">Account</label>
+                        <input type="text" id="Account" name="Account" placeholder="Your Email or MemberID">
+                    </div>
+
+                    <div class="flex">
+                        <label for="PasswordForLogin" class="register_label">Password</label>
+                        <input type="Password" register_grid id="PasswordForLogin" name="Password">
+                    </div>
+                    <span id="errorMessagesForLogin" class="error_message"></span>
+                    @* <span>@ViewBag.Error</span> *@
+
+                    <div class="flex">
+                        <input type="submit" value="Log in" class="input_btn btn_sub">
+                    </div>
+
+                    <div class="flex">
+                        <a href="">Forget Password?</a>
+                    </div>
+
+                </div>
+                @* } *@
+            </form>
+            <!-- </div> -->
+        </div>
+    </div>
+
+</div>
+
+<script>
+    var element = document.getElementsByClassName("nav-btn-box")[0];
+    element.addEventListener("click", myFunction);
+    function myFunction(e) {
+        var elems = document.querySelector(".non-active");
+        if (elems != null) {
+            elems.classList.remove("non-active");
+        }
+        e.target.classList.add("non-active");
+    }
+
+    /////////////////頁面跳轉(利用 #)////////////////////////
+    var page = document.getElementsByClassName('page-container')[0];
+    var page_reg = document.getElementById("page_reg");
+    var page_home = document.getElementById("page_home");
+    var page_login = document.getElementById("page_login");
+    var page_check = document.getElementById("page_check");
+
+    function renderByUrl(url) {
+        var active = document.querySelector(".is-active");
+        if (active != null) {
+            active.classList.remove("is-active");
+        }
+        //若沒有hash值預設導向至#/
+        if (location.hash === "") {
+            location.href = "#/home";
+            return;
+        }
+        //路徑對應頁面內容
+        if (url === "#/" || url === "#/home") {
+            page_home.classList.add('is-active');
+        } else if (url === "#/login") {
+            page_login.classList.add('is-active');
+        } else if (url === "#/register") {
+            page_reg.classList.add('is-active');
+        } else if (url === "#/check") {
+            page_check.classList.add('is-active');
+            checkVerifyEmailAddressToken();
+        }
+    }
+
+    //載入事件
+    window.addEventListener("load", function () {
+        //使用location.hash判斷頁面內容
+        renderByUrl(location.hash);
+        console.log(location.hash);
+    });
+
+    //監聽網址改變事件
+    window.addEventListener("hashchange", function () {
+        //使用location.hash判斷頁面內容
+        renderByUrl(location.hash);
+        console.log(location.hash);
+    });
+</script>
+<script src="~/Scripts/Home-Index.js"></script>

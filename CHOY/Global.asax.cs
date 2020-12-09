@@ -9,6 +9,7 @@ using System.Web.SessionState;
 using System.Web.Http;
 using CHOY.DAL;
 using System.Data.Entity;
+using System.Web.Optimization;
 
 namespace CHOY
 {
@@ -20,9 +21,14 @@ namespace CHOY
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             // Database Initialization
             Database.SetInitializer<ChoyContext>(new ChoyInitializer());
+        }
+        protected void Application_PostAuthorizeRequest()
+        {
+            System.Web.HttpContext.Current.SetSessionStateBehavior(System.Web.SessionState.SessionStateBehavior.Required);
         }
     }
 }

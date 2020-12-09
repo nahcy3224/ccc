@@ -1,40 +1,161 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <title>@ViewBag.Title - CHOY Board</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+    <link href="~/Content/home.css" rel="stylesheet" /><link href="~/Content/layout.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("應用程式名稱", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("首頁", "Index", "Home")</li>
+                        <li>@Html.ActionLink("關於", "About", "Home")</li>
+                        <li>@Html.ActionLink("連絡人", "Contact", "Home")</li>
+                    </ul>
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                </ul>
+        </div>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>
+            </footer>
+        </div>*@
+    @*<div class="bar_container">
+            <div class="bar">
+                <div class="bar_inner" id="bar">
+
+                    <div class="bar_logo">
+                        <img src="~/Images/logo_dg_line.png" />
+                    </div>
+
+                    <div class="bar_pre"></div>
+
+                    <a href="#/login" class="btn1">
+                        <div class="home_btn" id="login_btn">Log In</div>
+                    </a>
+
+                    <a href="#/register" class="btn2">
+                        <div class="home_btn" id="reg_btn">Register</div>
+                    </a>
+
+                <div class="bar_trigger js-nav-trigger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                </div>
+            </div>
+        </div>*@
+
+    <div class="bar_container">
+        <div class="bar">
+            <div class="bar_inner">
+
+                <a href="./" class="bar_logo">
+                    <img src="~/Images/logo_dg_line.png" />
+                </a>
+
+                <div class="tools_box">
+
+                </div>
+
+                <div class="bar_trigger js-nav-trigger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
             </div>
         </div>
     </div>
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+    <div class="content_container">
+        <div class="content_main">
+            <div class="content_inner">
+                <div class="content_title">
+                    <h1>WELLCOME</h1>
+                    <!-- <h4>XXX</h4> -->
+                </div>
+                <div class="list_container">
+                    <!-- <div class="content_list member_list">
+                        <h2>Member's</h2>
+                        <h4><a href="" class="try_after">Projects</a></h4>
+                        <h4><a href="">Groups</a></h4>
+                        <h4><a href="">Page</a></h4>
+                    </div> -->
+                    <div class="content_list member_list">
+                        <h2>Member's</h2>
+                        <a href="" class="try_after">Projects</a>
+                        <a href="">Groups</a>
+                        <a href="">Page</a>
+                    </div>
+
+                    <div class="content_list manger_list">
+                        <h2>Manager Page</h2>
+                        <a href="">Bulletin</a>
+                        <a href="">Suspension</a>
+                        <a href="">Set Manager</a>
+                        <a href="">Download Data</a>
+                    </div>
+                </div>
+                <div class="list_footer">
+                    <p>Logout</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="contact_list">
+
+        </div>
     </div>
 
-    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script>
+		////////////漢堡點擊事件//////////////////////////////
+
+		var bar_change = document.getElementsByClassName('bar_trigger')[0];
+		var content=document.getElementsByClassName('content_container')[0];
+
+		bar_change.addEventListener("click", bar_click);
+
+		function bar_click() {
+
+   			if(this.classList.contains('is-active')){
+   				this.classList.remove('is-active');
+   				content.classList.remove('is-active');
+   			}
+   			else{
+   				this.classList.add('is-active');
+   				content.classList.add('is-active');
+   			}
+		}
+
+
+    </script>
+    @RenderBody()
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 </body>
 </html>

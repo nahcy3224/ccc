@@ -1,0 +1,664 @@
+﻿* {
+     /*border: solid 1px; */
+    font-family: "Helvetica", "Arial","LiHei Pro","黑體-繁","微軟正黑體", sans-serif;
+    position: relative;
+}
+
+body {
+    margin: 0px auto;
+    padding: 0px;
+}
+
+/*---------------------------tag-----------------------------------*/
+
+input {
+    font-size: 1rem;
+    background-color: transparent;
+    border: none;
+    border-bottom: solid 1px #bcd2cd;
+}
+
+    input::-webkit-input-placeholder {
+        font-size: 0.8rem
+    }
+
+form {
+    /*width: 460px;*/
+    /*width: 700px;*/
+}
+
+a {
+    text-decoration: none;
+    color:#79A49A;
+}
+
+a:hover{
+    text-decoration:none;
+    color: #BCD2CD;
+    text-decoration: none;
+    /*background-color: #BCD2CD;*/
+}
+/*--------------------------public-----------------------------*/
+
+.hidden {
+    display: none;
+}
+
+.flex_out {
+    display: flex;
+    flex-direction: column;
+    /*-webkit-flex-wrap: wrap;*/
+    /*flex-wrap: wrap;*/
+    /*justify-content: space-around;*/
+    /*width: 50%; */
+}
+
+    .flex_out > div {
+        padding: 20px 0;
+    }
+
+@media screen and (max-width: 768px) {
+    .flex_out > div {
+        padding: 12px 0;
+    }
+}
+
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 350px;
+}
+
+    .flex > input {
+        width: 200px;
+        font-weight: 100;
+    }
+
+    .flex > div {
+        width: 180px;
+    }
+
+    .flex > a {
+        margin: auto;
+    }
+
+
+/*-------------------------------bar-----------------------------------*/
+
+.bar_container {
+    width: 120px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #f3f3ee;
+    z-index: 100;
+    /*display: flex;*/
+}
+
+@media screen and (max-width: 768px) {
+    .bar_container {
+        width: 100%;
+        height: auto;
+        /*padding: 0 5px;*/
+    }
+}
+
+.bar_container img {
+    width: 100%;
+    height: auto;
+}
+
+.bar_container .bar {
+    border-right: 1px solid #e5e5e5;
+    height: 100%;
+}
+
+@media screen and (max-width: 768px) {
+    .bar_container .bar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e5e5e5;
+    }
+}
+
+.bar_container .bar_inner {
+    display: grid;
+    grid-template-rows: 1fr 8fr 1fr 1fr;
+    grid-template-areas: "B1" "B2" "B3" "B4";
+    height: 100%;
+    padding-bottom: 40px;
+    min-width: 120px;
+    background-color: rgba(254,254,254,0.4);
+}
+
+@media screen and (max-width: 768px) {
+    .bar_container .bar_inner {
+        grid-template-columns: 1fr 3fr 1fr 1fr;
+        grid-template-areas: "B1 B2 B3 B4";
+        width: 100%;
+        height: 50px;
+        /*padding: 0 0 0 30px;*/
+        border-right: none;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 0;
+    }
+}
+
+
+.bar_container .bar_logo {
+    grid-area: B1;
+    justify-self: center;
+    width: 80px;
+    margin: 10px 0 15px 0;
+}
+
+@media screen and (max-width: 768px) {
+    .bar_container .bar_logo {
+        justify-content: start;
+        width: 56px;
+        margin: 3px 8px 0 0;
+    }
+}
+
+.bar_container .bar_pre {
+    grid-area: B2;
+}
+
+@media screen and (margin: 765px) {
+    .bar_container .bar_pre {
+        justify-content: start;
+    }
+}
+
+.btn1 {
+    grid-area: B3;
+    justify-self: center;
+    /*position: relative;*/
+    /*margin: 10px 0  0;*/
+    /*height: 30px;*/
+}
+
+@media screen and (max-width: 768px) {
+    .btn1 {
+        justify-content: start;
+        align-self: center;
+    }
+}
+
+.btn2 {
+    grid-area: B4;
+    justify-self: center;
+    /*width: 70px;*/
+    /*min-height: 51px;*/
+    /*height: 51px;*/
+    /*margin: 30px 0 0;*/
+    /*height: 30px;*/
+}
+
+@media screen and (max-width: 768px) {
+    .btn2 {
+        justify-content: start;
+        align-self: center;
+        padding: 0 0.5rem;
+        /*height: auto;*/
+        /*margin: 0;*/
+        /*padding: 20px 0;*/
+    }
+}
+
+
+.home_btn {
+    width: 100px;
+    height: 2.3rem;
+    border: solid 1px #79A49A;
+    font-size: 18px;
+    color: #79A49A;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: 2;
+    border-radius: 10rem;
+    padding-top: 5px;
+    background-color: #fff;
+    cursor: pointer;
+    vertical-align: middle;
+    align-items: center;
+}
+
+
+.home_close_btn {
+    text-align: center;
+    font-size: 2rem;
+    /*color: #BCD2CD;*/
+    color: #79A49A;
+    font-weight: bold;
+    font-family: 微軟正黑體;
+}
+
+    .home_close_btn:hover, .home_close_btn:focus {
+        color: #373D43;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+#reg_btn {
+    /*display: none;	*/
+}
+
+/*---------------------------------右方主體----------------------------------------*/
+.home_container {
+    position: fixed;
+    top: 0;
+    left: 120px;
+    width: 100%;
+    height: 100%;
+    border-left: 1px solid #e5e5e5;
+    -ms-overflow-style: auto;
+    scrollbar-width: auto;
+    overflow-x: none;
+}
+
+    .home_container::-webkit-scrollbar {
+        display: auto;
+    }
+
+@media screen and (max-width: 768px) {
+    .home_container {
+        left: 0;
+        top: 50px;
+        z-index: 99;
+        border-left: none;
+        border-top: 1px solid #e5e5e5;
+    }
+}
+
+.home_color {
+    background-color: #f3f3ee;
+}
+
+.home_color2 {
+    background-color: rgba(254,254,254,0.3);
+    height: 100%;
+    position: relative;
+}
+
+.home_container .home_grid {
+    /*display: grid;*/
+   /* grid-template-rows: 1fr 3fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: "a bulletin a"
+                         "e board d"
+                          "b c c";*/
+    /*background-color: #f3f3ee;*/
+    height: 100%;
+}
+/*	@media screen and (max-width: 768px) {
+		.home_container .home_grid{
+		}
+	}*/
+
+
+.home_container .animation-back {
+    /*grid-area:board;*/
+    display: grid;
+    grid-template-rows: 1fr 50% 1fr;
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-areas: "Board1 Board1 hb1"
+                         "Board2 Board2 Board2" 
+                         "hb4 Board3 hb5";
+}
+
+@media screen and (max-width: 768px) {
+    .home_container .animation-back {
+        grid-template-rows: 1fr 50% 1fr;
+        grid-template-columns: 1fr 3fr 1fr;
+        grid-template-areas: "Board1 Board1 hb1"
+                             "Board2 Board2 Board2"
+                              "hb4 Board3 hb5";
+    }
+}
+
+
+
+
+.home_container .board_back {
+    margin: auto;
+    margin-top: 10rem;
+    grid-area: board;
+    /*position: absolute;*/
+    /*margin-left: ;*/
+    /*margin-right: auto;*/
+    /*left: 10rem;*/
+    /*display: inline-block;*/
+    height: 550px;
+    width: 800px;
+    box-shadow: 0px 0px 20px rgba(0,0,0,0.35);
+    background-color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+    .home_container .board_back {
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 10px;
+        height: 280px;
+        width: 407px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .home_container .board_back {
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 3rem;
+        width: 350px;
+        height: 240px;
+    }
+}
+
+.slogen_1 {
+    grid-area: Board1;
+    text-align: left;
+    position: relative;
+    display: inline-block;
+    left: 80px;
+    top: 60px;
+    font-weight: 100;
+    font-size: 2.5rem;
+}
+
+@media screen and (max-width: 768px) {
+    .slogen_1 {
+        /*display: none;*/
+        font-size: 1.3rem;
+        position: absolute;
+        margin: 0 auto;
+        left: 40px;
+        top: 45px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .slogen_1 {
+        font-size: 1rem;
+        position: absolute;
+        margin: 0 auto;
+        left: 40px;
+        top: 30px;
+    }
+}
+
+.slogen_2 {
+    grid-area: Board2;
+    align-self: center;
+    text-align: center;
+    display: inline-block;
+    font-size: 8rem;
+    transform: rotate(-3deg);
+    color: transparent;
+    -webkit-text-stroke: 1px #3e3e3e;
+}
+
+@media screen and (max-width: 768px) {
+    .slogen_2 {
+        font-size: 5rem;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .slogen_2 {
+        font-size: 3rem;
+    }
+}
+
+.btn_start {
+    grid-area: Board3;
+    /*justify-self: center;*/
+    background-color: #79A49A;
+    color: #fff;
+    font-weight: 500;
+}
+/*--------------------------------------------CHECK-----------------------------------*/
+.check_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+    font-size: 1.8rem;
+    margin: auto;
+    padding: 0;
+    height: 50%;
+}
+
+    .check_box .flex {
+        font-size: 1.1rem;
+    }
+
+    .check_box > input {
+        font-weight: 100;
+    }
+
+@media screen and (max-width: 768px) {
+    .check_box {
+        height: 100%;
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 576px) {
+
+    .check_box input {
+        width: 150px;
+    }
+
+    .check_box .flex {
+        width: 330px;
+        font-size: 1rem;
+    }
+}
+
+/*----------------------------------------register----------------------------------------*/
+
+
+.input_btn {
+    /*border: 1px solid #bcd2cd;*/
+    background-color: #79A49A;
+    color: #fff;
+    padding: 3px 10px;
+    line-height: 1.5rem;
+    font-weight: 2;
+    border-radius: 10rem;
+    text-align: center;
+}
+
+.btn_sub {
+    font-size: 1.5rem;
+    padding: 5px 15px;
+    width: 300px;
+    margin: auto;
+}
+/*@media screen and (max-width: 768px) {
+	.btn_sub{
+
+	}		
+}*/
+
+.register_box {
+    padding-top: 50px;
+    padding-left: 50px;
+}
+
+@media screen and (max-width: 576px) {
+    .register_box {
+        padding: 10px;
+    }
+}
+
+.register_box, .login_box label {
+    font-size: 1.2rem;
+    font-weight: 200;
+}
+
+@media screen and (max-width: 768px) {
+    .register_box label {
+        /*font-size: 1.15rem;*/
+    }
+}
+
+.flex_VCode {
+    display: flex;
+}
+
+@media screen and (max-width: 768px) {
+    .flex_VCode {
+        flex-direction: column;
+    }
+
+        .flex_VCode > input {
+            margin-top: 10px;
+            width: 250px;
+        }
+}
+/*---------------------------------------LogInPage-----------------------------		*/
+.login_box {
+    height: 100%;
+    /*padding-top: 200px;*/
+    /*margin: auto;*/
+}
+
+    .login_box .flex_out {
+        /*padding-top: 3rem;*/
+        /*width: 380px;*/
+        justify-content: space-around;
+    }
+/*---------------------------------------animate-----------------------------		*/
+.show_anima {
+    animation-name: fadein-left; /*跟這個標籤(#square)說要執行的動畫名字*/
+    animation-duration: 1.5s; /*跟標籤(#square)說這個動畫要跑多久，我設定1秒即是我完成這個動畫需要1秒的時間*/
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadein-left {
+    0% {
+        transform: translateX(-100px); /*要讓他往右移，所以使用translateX屬性*/
+        opacity: 0; /*opacity的意思是透明度*/
+    }
+
+    100% { /*這邊先設定動畫初始值*/
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    @keyframes fadein-left {
+        0% {
+            transform: translateY(-100px);
+            opacity: 0;
+        }
+
+        100% { /*這邊先設定動畫初始值*/
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+}
+
+.hidden_anima {
+    animation-name: fadeout-left;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeout-left {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+        /*visibility: visible;*/
+    }
+
+    100% {
+        transform: translateX(-100px);
+        opacity: 0;
+        /*visibility: hidden;*/
+    }
+}
+
+@media screen and (max-width: 768px) {
+    @keyframes fadeout-left {
+        0% {
+            transform: translateY(0);
+            opacity: 1;
+            /*visibility: visible;*/
+        }
+
+        100% {
+            transform: translateY(-100px);
+            opacity: 0;
+            /*visibility: hidden;*/
+        }
+    }
+}
+
+blockquote p{
+    border-top: 2px solid #BCD2CD;
+    border-bottom: 2px solid #BCD2CD;
+    padding-left: 9%;
+    padding-right: 9%;
+}
+
+.bulletin_show_box{
+    width: 70%;
+    margin: auto;
+    margin-top: 3rem;
+}
+@media screen and (max-width: 768px){
+    .bulletin_show_box{
+        margin-top:5px;
+    }
+    .bulletin_show_box p{
+        font-size: 1.1rem;
+        padding-left:10%;
+        padding-right: 10%;
+    }
+}
+@media screen and (max-width: 576px) {
+    .bulletin_show_box{
+        margin-top:2rem;
+        width: 95%;
+    }
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  height: 100px;
+  width: 100px;
+  outline: black;
+  background-size: 100%, 100%;
+  border-radius: 50%;
+  /* border: 1px solid black; */
+  background-image: none;
+}
+
+.carousel-control-next-icon:after
+{
+  content: '>';
+  font-size: 55px;
+  color: #BCD2CD;
+}
+
+.carousel-control-prev-icon:after {
+  content: '<';
+  font-size: 55px;
+  color: #BCD2CD;
+}
+/*-----------------------------------補充 by Jian Fong------------------------------------*/
+.error_message {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #e42424;
+}

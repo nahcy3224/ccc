@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title CHOY Board</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/css4/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Home-Index.css" rel="stylesheet" />
+    <link href="~/Content/public.css" rel="stylesheet" />
+    <link href="~/Content/public_nav.css" rel="stylesheet" />
+    
+    <link href="~/Content/home_test.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="nav-container">
+        <div class="bar">
+            <div class="nav-inner">
+
+                <a href="./" class="nav-logo">
+                    <img src="~/Images/logo_dg_line.png" />
+                </a>
+
+                <div class="nav-btn-box">
+                    <div class="">
+                        <a class="btn" id="login_btn" href="#/login">Log In</a>
+                    </div>
+
+                    <div class="">
+                        <a class="btn " id="reg_btn" href="#/register">Register</a>
+                    </div>
+
+                    <div class="non-active">
+                        <a class="nav-close-btn " id="colse_btn" href="#/home">x</a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    @RenderBody()
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script>
+
+        var element = document.getElementsByClassName("nav-btn-box")[0];
+        element.addEventListener("click", myFunction);
+        function myFunction(e) {
+            var elems = document.querySelector(".non-active");
+            if (elems != null) {
+                elems.classList.remove("non-active");
+            }
+            e.target.classList.add( "non-active");
+        }
+
+    </script>
+</body>
+</html>

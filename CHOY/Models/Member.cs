@@ -24,7 +24,7 @@ namespace CHOY.Models
         public string Email { get; set; }
 
         [DisplayName("密碼")]
-        [StringLength(18, ErrorMessage = "密碼至少有6個字元", MinimumLength = 6)]
+        [StringLength(64)]
         [DataType(DataType.Password)]
         public string Psw { get; set; }
 
@@ -38,7 +38,7 @@ namespace CHOY.Models
 
         [DisplayName("生日")]
         [DataType(DataType.Date)]
-        public System.DateTime? Bday { get; set; }
+        public System.DateTime Bday { get; set; }
 
         [DisplayName("備用電子郵件")]
         [DataType(DataType.EmailAddress)]
@@ -47,7 +47,7 @@ namespace CHOY.Models
         [DisplayName("建立的時間")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
-        public System.DateTime? CreateAt { get; set; } = DateTime.Now;
+        public System.DateTime CreateAt { get; set; } = DateTime.Now;
 
         [DisplayName("大頭照")]
         public byte[] ProfilePic { get; set; }

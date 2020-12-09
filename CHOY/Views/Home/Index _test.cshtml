@@ -1,0 +1,140 @@
+﻿@{
+    ViewBag.Title = "HomePage";
+}
+@Styles.Render("~/Content/Home-Index.css")
+<div class="page-container">
+    <div class="home_container home_color" id="page_home">
+        <div class="home_grid home_color2">
+
+            <div class="animation_back board_back">
+                <div class="slogen_1"><p>Note By Any Way</p></div>
+                <div class="slogen_2"><p>You Want</p></div>
+                <div class="btn_start home_btn" id="go_btn"><span>GO</span></div>
+            </div>
+
+            <div class="bulletin_show_box">
+                @Html.Action("_ShowBul", "Bulletins")
+            </div>
+        </div>
+    </div>
+
+    <div class="page-container" id="page_check">
+        <div class="home_grid">
+            <form class="board_back flex_out" method="post" action="/Auth/Register" onsubmit="return handleRegister()">
+
+                <div class="check_box">
+                    <div>
+                        Set password
+                    </div>
+                    <div class="flex">
+                        <label for="PasswordForSet" class="register_label">Password</label>
+                        <input type="Password" id="PasswordForSet" name="Password">
+                    </div>
+                    <div class="flex">
+                        <label for="confirmPwd" class="register_label">Password Confirm</label>
+                        <input type="Password" id="confirmPwd" name="confirmPwd">
+                    </div>
+                    <span id="errorMessagesForSetPassword" class="error_message"></span>
+                    <div class="flex">
+                        <input type="Submit" value="Submit" class=" input_btn btn_sub">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="page-container show_anima" id="page_reg">
+        <div class="register_box">
+            <h2 class="">Become Member</h2>
+            <form method="post" action="api/auth/verifyEmailAddress" onsubmit="return handleVerifyEmailAddress()">
+                @* @using (Html.BeginForm("Register", "Auth", FormMethod.Post))
+                    { *@
+                <div class="flex_out">
+                    <div class="flex">
+                        <label for="Email" class="register_label">Email</label>
+                        <input type="email" id="Email" name="Email" placeholder="">
+                    </div>
+
+                    <div class="flex">
+                        <label for="UserName" class="register_label">Username</label>
+                        <input type="text" register_grid id="UserName" name="UserName">
+                    </div>
+
+                    <div class="flex">
+                        <label for="Gender" class="register_label">Gender</label>
+                        <div>
+                            <input type="radio" name="Gender" value="1" id="grnder_0" checked>
+                            <label for="grnder_0">Male</label>
+                            <input type="radio" name="Gender" value="0" id="grnder_1">
+                            <label for="grnder_1">Female</label>
+                        </div>
+                    </div>
+
+                    <div class="flex">
+                        <label for="Birthday" class="register_label">Birthday</label>
+                        <input type="date" id="Birthday" name="Birthday">
+                    </div>
+
+                    <div class="register_term">
+                        <input type="checkbox" id="agree" name="agree" value="agree">
+                        <label for="agree">I have read and understood <a href="">the terms and conditions</a>.</label>
+                    </div>
+                    <span id="errorMessagesForRegister" class="error_message"></span>
+
+                    <div class="flex">
+                        <input type="submit" value="Submit" class="input_btn btn_sub">
+                        <!-- <input type="button" value="Reset" class="input_btn"> -->
+                    </div>
+                </div>
+                @* } *@
+            </form>
+        </div>
+    </div>
+
+    <div class="page-container show_anima" id="page_login">
+        <div class="register_box">
+            <!-- <div class="login_position"> -->
+            <h2>LOGIN</h2>
+            <form method="post" action="/api/auth/login" onsubmit="return handleLogin()">
+                @* @using (Html.BeginForm("Login", "Auth", FormMethod.Post))
+                    {
+                      @Html.AntiForgeryToken() *@
+                <div class="flex_out">
+
+                    <div class="flex">
+                        <label for="Account" class="register_label">Account</label>
+                        <input type="text" id="Account" name="Account" placeholder="Your Email or MemberID">
+                    </div>
+
+                    <div class="flex">
+                        <label for="PasswordForLogin" class="register_label">Password</label>
+                        <input type="Password" register_grid id="PasswordForLogin" name="Password">
+                    </div>
+                    <span id="errorMessagesForLogin" class="error_message"></span>
+                    @* <span>@ViewBag.Error</span> *@
+
+                    <div class="flex">
+                        <input type="submit" value="Log in" class="input_btn btn_sub">
+                    </div>
+
+                    <div class="flex">
+                        <a href="">Forget Password?</a>
+                    </div>
+
+                </div>
+                @* } *@
+            </form>
+            <!-- </div> -->
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/js4/bootstrap.min.js"></script>
+<script src="~/Scripts/js4/bootstrap.bundle.min.js"></script>
+<script src="~/Scripts/Home-Index.js"></script>
+<script>
+    $('.carousel').carousel({
+        interval: false,
+    });
+</script>

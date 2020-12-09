@@ -1,0 +1,214 @@
+﻿.nav-btn-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+@media screen and (max-width: 767px){
+    .nav-btn-box{
+        flex-direction: row;
+    }
+}
+
+.nav-btn-box a{
+    width: 100px;
+    /*display: none;
+    opacity: 0;*/
+    display:block;
+    opacity: 1;
+}
+
+.nav-btn-box .non-active{
+    /*display:block;
+    opacity: 1;*/
+    display: none;
+    opacity: 0;
+}
+
+.nav-close-btn {
+    text-align: center;
+    font-size: 3rem;
+    /*color: #BCD2CD;*/
+
+    color: #79A49A;
+    font-weight: bold;
+    font-family: 微軟正黑體;
+    margin: 1px;
+}
+    .nav-close-btn:hover, .nav-close-btn:focus {
+        color: #373D43;
+        text-decoration: none;
+        cursor: pointer;
+    }
+.page-container>div{
+    display: none;
+    opacity: 0;transition: .4s;
+}
+
+.page-container .is-active{
+    display:block;
+    opacity: 1;
+    
+}
+/*-----------頁面排版-------------------*/
+.hp-inner{
+    height: 100%;
+}
+
+.page-container .animation-back {
+    /*grid-area:board;*/
+    display: grid;
+    grid-template-rows: 1fr 50% 1fr;
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-areas: "Board1 Board1 hb1"
+                         "Board2 Board2 Board2" 
+                         "hb4 Board3 hb5";
+}
+
+@media screen and (max-width: 767px) {
+    .page-container .animation-back {
+        grid-template-rows: 1fr 50% 1fr;
+        grid-template-columns: 1fr 3fr 1fr;
+        grid-template-areas: "Board1 Board1 hb1"
+                             "Board2 Board2 Board2"
+                              "hb4 Board3 hb5";
+    }
+}
+.page-container .board-back {
+    margin: auto;
+    margin-top: 10rem;
+    grid-area: board;
+    /*position: absolute;*/
+    /*margin-left: ;*/
+    /*margin-right: auto;*/
+    /*left: 10rem;*/
+    /*display: inline-block;*/
+    height: 550px;
+    width: 800px;
+    box-shadow: 0px 0px 20px rgba(0,0,0,0.35);
+    background-color: #fff;
+}
+
+@media screen and (max-width: 767px) {
+    .page-container .board-back {
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 5;
+        height: 280px;
+        width: 407px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .page-container .board-back {
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 3rem;
+        width: 500px;
+        height: 240px;
+    }
+}
+.slogen1 {
+    grid-area: Board1;
+    text-align: left;
+    position: relative;
+    display: inline-block;
+    left: 80px;
+    top: 80px;
+    font-size: 4rem;
+}
+
+@media screen and (max-width: 767px) {
+    .slogen1 {
+        position: relative;
+        margin: 0 auto;
+        top: 45px;
+        font-size: 4rem;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .slogen1 {
+        position: relative;
+        margin: 0 auto;
+        left: 40px;
+        top: 30px;
+    }
+}
+
+.slogen2 {
+    grid-area: Board2;
+    align-self: center;
+    text-align: center;
+    /*display: inline-block;*/
+    /*font-size: 8rem;*/
+    transform: rotate(-3deg);
+    /*color: transparent;*/
+    /*-webkit-text-stroke: 1px #3e3e3e;*/
+}
+
+
+.btn_start {
+    grid-area: Board3;
+    /*justify-self: center;*/
+    background-color: #79A49A;
+    color: #fff;
+    font-weight: 500;
+}
+
+.hp-inner .btn{
+    width: 100px;
+    height: 3.5rem;
+    margin: auto;
+}
+
+/*------------------------------------*/
+.bulletin_show_box{
+    width: 70%;
+    margin: auto;
+    margin-top: 3rem;
+}
+
+.bulletin_show_box p{
+    font-size: 2.5rem;
+    width: 70%;
+    margin: auto;
+}
+@media screen and (max-width: 767px){
+    .bulletin_show_box{
+        margin-top:5px;
+    }
+    .bulletin_show_box p{
+        font-size: 1.1rem;
+        padding-left:10%;
+        padding-right: 10%;
+    }
+}
+@media screen and (max-width: 576px) {
+    .bulletin_show_box{
+        margin-top:2rem;
+        width: 95%;
+    }
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  height: 95px;
+  width: 100px;
+  outline: black;
+  background-size: 100%, 100%;
+  border-radius: 50%;
+  /* border: 1px solid black; */
+  background-image: none;
+}
+
+.carousel-control-next-icon:after
+{
+  content: '>';
+  font-size: 55px;
+  color: #BCD2CD;
+}
+
+.carousel-control-prev-icon:after {
+  content: '<';
+  font-size: 55px;
+  color: #BCD2CD;
+}
