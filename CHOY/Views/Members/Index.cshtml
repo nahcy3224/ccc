@@ -1,0 +1,141 @@
+﻿@*@model IEnumerable<Demo.Models.Member>*@
+@using PagedList;
+@using PagedList.Mvc;
+@using CHOY.Models
+
+@model IPagedList<CHOY.Models.Member>
+@{
+    ViewBag.Title = "管理會員";
+}
+    <div class="page-container">
+   
+            <div class="index-inner">
+                <h2>管理會員</h2>
+
+            
+                        @Html.ActionLink("下載會員資料", "ExportToExcel", null, new { @class = "btn btn-default" })
+
+
+                <table class="table">
+                    <tr>
+                        <th>
+                            會員編號
+                            @*@Html.DisplayNameFor(model => model.MemberID)*@
+                        </th>
+                        <th>
+                            電子郵件
+                            @*@Html.DisplayNameFor(model => model.Email)*@
+                        </th>
+                        @*<th>
+                            @Html.DisplayNameFor(model => model.Psw)
+                </th>*@
+                        <th>
+                            會員
+                            @*@Html.DisplayNameFor(model => model.NickName)*@
+                        </th>
+                        <th>
+                            性別
+                            @*@Html.DisplayNameFor(model => model.Gender)*@
+                        </th>
+                        <th>
+                            生日
+                            @*@Html.DisplayNameFor(model => model.Bday)*@
+                        </th>
+                        @*<th>
+                備用電子郵件
+                @Html.DisplayNameFor(model => model.ContactEmail)
+                                </th>*@
+                        @*<th>
+                         @Html.DisplayNameFor(model => model.CreateAt)
+                </th>*@
+                        @*<th>
+                       @Html.DisplayNameFor(model => model.ProfilePic)
+                </th>*@
+                        @*<th>
+                        @Html.DisplayNameFor(model => model.ImageMimeType)
+                </th>*@
+                        <th>
+                            權限
+                            @*@Html.DisplayNameFor(model => model.PerCode)*@
+                        </th>
+                        <th>
+                            是否停權
+                            @*@Html.DisplayNameFor(model => model.IsSuspended)*@
+                        </th>
+                        @* <th>
+                 最後登入時間
+                @Html.DisplayNameFor(model => model.LastLogInTime)
+                                </th>*@
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MemberID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            @*<td>
+                        @Html.DisplayFor(modelItem => item.Psw)
+                    </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NickName)
+                            </td>
+                            <td>
+                                @(item.Gender? "男" : "女")
+                                @*@Html.DisplayFor(modelItem => item.Gender)*@
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Bday)
+                            </td>
+                            @*<td>
+                        @Html.DisplayFor(modelItem => item.ContactEmail)
+                    </td>*@
+                            @*<td>
+                        @Html.DisplayFor(modelItem => item.CreateAt)
+                    </td>
+                    <td>
+                        <img src="@Url.Action("GetImage",new{  id=item.MemberID})" />
+                        @Html.DisplayFor(modelItem => item.ProfilePic)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ImageMimeType)
+                    </td>*@
+                            <td>
+                                @item.PerCode.GetDisplayName()
+                                @*@item.PerCode.GetDisplayName()*@
+                                @*@Html.DisplayFor(modelItem => item.PerCode)*@
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsSuspended)
+                            </td>
+                            @*<td>
+                        @Html.DisplayFor(modelItem => item.LastLogInTime)
+                    </td>*@
+                            <td>
+                                @Html.ActionLink("更改權限", "Edit", new { id = item.MemberID }) |
+                                @Html.ActionLink("詳細資料", "Display", new { id = item.MemberID })
+                                @*@Html.ActionLink("Delete", "Delete", new { id = item.MemberID })*@
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+
+                <div class="text-center">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                </div>
+
+                @section scripts
+            {
+      
+                    <script src="~/Scripts/Customer-Export.js"></script>
+                }
+
+            </div>
+            
+    </div>

@@ -48,15 +48,15 @@
                     <div class="content-list member-list">
                         <h2 class="font-small">Member's</h2>
                         <a href="" class="try-after">Projects</a>
-                        <a href="">Groups</a>
-                        <a href="">Page</a>
+                        @Html.ActionLink("Groups", "Index", "Groups")
+                        <a href="">My Page</a>
                     </div>
 
                     <div class="content-list manger-list">
                         <h2>Manager Page</h2>
-                         @Html.ActionLink("Bulletin", "Index", "Bulletins")
+                        @Html.ActionLink("Bulletin", "Index", "Bulletins")
                         <a href="">Suspension</a>
-                        <a href="">Set Manager</a>
+                        @Html.ActionLink("Set Manager", "Index", "Members")
                         <a href="">Download Data</a>
                     </div>
                 </div>

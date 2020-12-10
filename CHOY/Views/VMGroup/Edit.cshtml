@@ -1,0 +1,60 @@
+﻿@model  IEnumerable<CHOY.Models.GroupMember>
+
+@{
+    ViewBag.Title = "Create";
+    var Id = Request.QueryString["Id"];
+    //var selected = "";
+}
+
+<h2>新增群組</h2>
+
+<form method="post" action="@Url.Action("Edit")">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label for="GroupName" class="col-md-2">群組名稱</label>
+            <div class="col-md-10">
+                <input id="GroupName" name="GroupName" type="text" class="form-control" placeholder="group.GroupName"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Id" class="col-md-2">新增群組成員</label>
+            <div class="col-md-10">
+                <input id="Id" name="Id" type="text" class="form-control" />
+            </div>
+        </div>
+
+
+
+        @*<div class="form-group">
+            <label for="fPhone" class="col-md-2">電話</label>
+            <div class="col-md-10">
+                <input id="fPhone" name="fPhone" type="text" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="fDepId" class="col-md-2">部門</label>
+            <div class="col-md-10">*@
+        @*<select id="fDepId" name="fDepId" class="form-control">
+                    @foreach (var item in Model)
+                    {
+                        selected = item.fDepId == Convert.ToInt32(depId) ? "selected" : "";
+                        <option value="@item.fDepId" @selected>@item.fDepName</option>
+
+                    }
+                </select>
+            </div>
+        </div>*@
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-2">
+                <input id="Submit1" type="submit" value="submit" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+<div>
+    @Html.ActionLink("返回我的群組列表", "Index", "Groups")
+
+</div>
+
+

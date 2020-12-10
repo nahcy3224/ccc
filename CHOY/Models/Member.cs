@@ -38,7 +38,7 @@ namespace CHOY.Models
 
         [DisplayName("生日")]
         [DataType(DataType.Date)]
-        public System.DateTime Bday { get; set; }
+        public System.DateTime? Bday { get; set; }
 
         [DisplayName("備用電子郵件")]
         [DataType(DataType.EmailAddress)]
@@ -71,6 +71,7 @@ namespace CHOY.Models
         public virtual ICollection<MemberJoinProject> MemberJoinProject { get; set; }
         public virtual ICollection<Project> Project { get; set; }
 
+        public virtual ICollection<GroupMember> GroupMember { get; set; }
 
 
     }

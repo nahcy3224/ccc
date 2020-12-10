@@ -1,0 +1,62 @@
+﻿@model CHOY.Models.Bulletin
+
+@{
+    ViewBag.Title = "刪除";
+}
+
+<div class="home_container home_color">
+    <div class="home_color2">
+
+        <h2>刪除</h2>
+
+        <h3>你確定要刪除此公告嗎?</h3>
+        <div>
+            @*<h4>Bulletin</h4>*@
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.EditTime)
+                </dt>
+
+                <dd>
+                    @Model.EditTime
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.PublishStart)
+                </dt>
+
+                <dd>
+                    @Model.PublishStart
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.PublishEnd)
+                </dt>
+
+                <dd>
+                    @Model.PublishEnd
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Content)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Content)
+                </dd>
+
+            </dl>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="確定刪除" class="btn btn-danger" /> |
+                    @Html.ActionLink("返回公告列表", "Index", null, new { @class = "btn btn-primary" })
+                </div>
+            }
+        </div>
+    </div>
+</div>

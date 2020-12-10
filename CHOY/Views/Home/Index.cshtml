@@ -5,22 +5,23 @@
 <div class="page-container">
 
     <div class="hp-inner" id="page_home">
+        <div class="bulletin-show-box">
+            @Html.Action("_ShowBul", "Bulletins")
+        </div>
         <div class="">
             <div class="animation-back board-back">
                 <div class="slogen1"><p>Note By Any Way</p></div>
-                <div class="slogen2"><p>You Want</p></div>
-                <div class="btn_start btn" id="go_btn"><span>GO</span></div>
+                <div class="slogen2 font-large"><p>You Want</p></div>
+                <div class="btn-start btn" id="go_btn"><span>GO</span></div>
             </div>
 
-            <div class="bulletin_show_box">
-                @*@Html.Action("_ShowBul", "Bulletins")*@
-            </div>
+
         </div>
     </div>
 
-    <div class="" id="page_check">
+    <div class="hp-inne" id="page_check">
         <div class=" home_grid">
-            <form class="board_back flex_out" method="post" action="/Auth/Register" onsubmit="return handleRegister()">
+            <form class="board-back flex_out" method="post" action="/Auth/Register" onsubmit="return handleRegister()">
                 @*@using (Html.BeginForm("Register", "Auth", FormMethod.Post, new { @class = "board_back flex_out" }))*@
                 @*{*@
                 <div class="check_box">
@@ -48,25 +49,25 @@
 
 
     <div class="" id="page_reg">
-        <div class="register_box">
-            <h2 class="">Become Member</h2>
+        <div class="index-inner">
+            <h2 class="font-middle">Become Member</h2>
             <form method="post" action="api/auth/verifyEmailAddress" onsubmit="return handleVerifyEmailAddress()">
                 @* @using (Html.BeginForm("Register", "Auth", FormMethod.Post))
                     { *@
                 <div class="flex_out">
                     <div class="flex">
-                        <label for="Email" class="register_label">Email</label>
+                        <label for="Email" class="">Email</label>
                         <input type="email" id="Email" name="Email" placeholder="">
                     </div>
 
                     <div class="flex">
-                        <label for="UserName" class="register_label">Username</label>
+                        <label for="UserName" class="">Username</label>
                         <input type="text" register_grid id="UserName" name="UserName">
                     </div>
 
                     <div class="flex">
-                        <label for="Gender" class="register_label">Gender</label>
-                        <div>
+                        <label for="Gender" class="">Gender</label>
+                        <div class="chose-box">
                             <input type="radio" name="Gender" value="1" id="grnder_0" checked>
                             <label for="grnder_0">Male</label>
                             <input type="radio" name="Gender" value="0" id="grnder_1">

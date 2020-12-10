@@ -106,7 +106,6 @@ namespace CHOY.Controllers
           {
             Email = (string)jwt["Email"],
             Psw = ChoyPassword.Hash(registerData.Password, TimeConverter.ToTimestamp(now)),
-            // Psw = registerSetPwdModel.Password,
             NickName = name,
             Gender = (bool)jwt["Gender"],
             Bday = TimeConverter.ToDateTime((long)jwt["Birthday"]),

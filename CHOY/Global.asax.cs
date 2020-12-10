@@ -24,7 +24,7 @@ namespace CHOY
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             // Database Initialization
-            Database.SetInitializer<ChoyContext>(new ChoyInitializer());
+            //Database.SetInitializer<ChoyContext>(new ChoyInitializer());
         }
         protected void Application_PostAuthorizeRequest()
         {

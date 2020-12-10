@@ -1,4 +1,4 @@
-自動建立會員編號
+-- 自動建立會員編號
 
 create trigger M_AutoNumber
 on Members

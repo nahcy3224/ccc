@@ -1,0 +1,55 @@
+﻿@model CHOY.Models.Bulletin
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="home_container home_color">
+    <div class="home_color2">
+        <h2>Details</h2>
+
+        <div>
+            <h4>Bulletin</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.EditTime)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.EditTime)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.PublishStart)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.PublishStart)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.PublishEnd)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.PublishEnd)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Content)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Content)
+                </dd>
+
+            </dl>
+        </div>
+        <p>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.BulletinID }) |
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+    </div>
+</div>

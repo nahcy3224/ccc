@@ -1,0 +1,156 @@
+﻿@model CHOY.Models.Member
+
+@{
+    ViewBag.Title = "會員明細";
+
+}
+
+<h2>是否停權</h2>
+
+<div class="page-container">
+
+        <div class="edit-inner">
+
+            @using (Html.BeginForm())
+            {
+
+                @Html.ActionLink("←  回公告列表", "Index", null, new { @class = "home_close_btn" })
+
+            }
+            @using (Html.BeginForm("Edit", "Members", FormMethod.Post, new { onsubmit = "return confirm('確定要保存修改內容嗎?')" }))
+            {
+                @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>會員</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.MemberID)
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" , @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+
+            @*<div class="form-group">
+            @Html.LabelFor(model => model.Psw, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Psw, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.Psw, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NickName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.NickName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.NickName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Model.Gender.ToGender()
+                        @*@Html.DisplayFor(model => model.Gender., new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })*@
+                        @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @*<div class="form-group">
+                    @Html.LabelFor(model => model.Bday, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Bday, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.Bday, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ContactEmail, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ContactEmail, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.ContactEmail, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @*<div class="form-group">
+                    @Html.LabelFor(model => model.CreateAt, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DisplayFor(model => model.CreateAt, "{0:yyyy-MM-ddTHH:mm}", new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>*@
+
+                @*<div class="form-group">
+            @Html.LabelFor(model => model.ProfilePic, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ProfilePic, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProfilePic, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+                @*<div class="form-group">
+            @Html.LabelFor(model => model.ImageMimeType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ImageMimeType, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ImageMimeType, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PerCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div>
+                            @foreach (Permissions ops in Enum.GetValues(typeof(Permissions)))
+                            {
+                                <input type="checkbox"
+                                       @(Model.PerCode.HasFlag(ops) ? "checked" : string.Empty)
+                                       name="PerCode" value="@ops" />
+                                @Html.Label("PerCode", ops.ToString())
+                            }
+                        </div>
+
+                        @*@Html.ValidationMessageFor(model => model.PerCode, "", new { @class = "text-danger" })*@
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IsSuspended, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.IsSuspended)
+                            @Html.ValidationMessageFor(model => model.IsSuspended, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                @*<div class="form-group">
+            @Html.LabelFor(model => model.LastLogInTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.LastLogInTime, "{00:00:00:yyyy/MM/dd}", new { htmlAttributes = new { @class = "form-control" }, @type = "datetime" })
+                @Html.ValidationMessageFor(model => model.LastLogInTime, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+                    }
+
+                    @*<div>
+                @Html.ActionLink("Back to List", "Index")
+            </div>*@
+
+                    @section Scripts {
+                        @Scripts.Render("~/bundles/jqueryval")
+                    }
+
+                </div>
+    </div>

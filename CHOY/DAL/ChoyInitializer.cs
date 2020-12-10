@@ -5,6 +5,8 @@ using System.Web;
 using System.Data.Entity;
 using System.IO;
 using CHOY.Models;
+using CHOY.App_Code.Auth;
+using CHOY.App_Code.Common;
 
 namespace CHOY.DAL
 {
@@ -13,19 +15,19 @@ namespace CHOY.DAL
     protected override void Seed(ChoyContext context)
     {
       base.Seed(context);
-
+      var now = DateTime.Now;
       List<Member> members = new List<Member>
       {
         new Member
         {
           MemberID="M0001",
           Email="nahcy3224@gmail.com",
-          Psw="000000",
+          Psw=ChoyPassword.Hash("000000", TimeConverter.ToTimestamp(now)),
           NickName="Mei",
           Gender=false,
           Bday=new DateTime(1993,05,22),
           ContactEmail ="nahcy3224@yahoo.com.tw",
-          //CreateAt=DateTime.Now,
+          CreateAt=now,
           ProfilePic=getFileBytes("\\Images\\img4.jpg"),
           ImageMimeType = "image/jpeg",
           PerCode=Permissions.Download | Permissions.General,
@@ -36,12 +38,12 @@ namespace CHOY.DAL
         {
           MemberID="M0002",
           Email="ncyuae104@gmail.com",
-          Psw="000000",
+          Psw=ChoyPassword.Hash("000000", TimeConverter.ToTimestamp(now)),
           NickName="Chun",
           Gender=false,
           Bday=new DateTime(1993,06,08),
           ContactEmail ="ncyuae104@gmail.com",
-          // CreateAt=DateTime.Now,
+           CreateAt=now,
           ProfilePic=getFileBytes("\\Images\\img4.jpg"),
           ImageMimeType = "image/jpeg",
           PerCode=Permissions.Download,
@@ -52,12 +54,12 @@ namespace CHOY.DAL
         {
           MemberID="M0003",
           Email="yn28572@gmail.com",
-          Psw="000000",
+          Psw=ChoyPassword.Hash("000000", TimeConverter.ToTimestamp(now)),
           NickName="Fong",
           Gender=true,
           Bday=new DateTime(1993,09,20),
           ContactEmail ="yn28572@gmail.com",
-          //CreateAt=DateTime.Today,
+          CreateAt=now,
           ProfilePic=getFileBytes("\\Images\\img4.jpg"),
           ImageMimeType = "image/jpeg",
           PerCode=Permissions.Download | Permissions.General ,
@@ -69,12 +71,12 @@ namespace CHOY.DAL
         {
           MemberID="M0004",
           Email="jhs030509@gmail.com",
-          Psw="000000",
+          Psw=ChoyPassword.Hash("000000", TimeConverter.ToTimestamp(now)),
           NickName="Andy",
           Gender=true,
           Bday=new DateTime(1996,12,18),
           ContactEmail ="nahcy3224@yahoo.com.tw",
-          //CreateAt=DateTime.Today,
+          CreateAt=now,
           ProfilePic=getFileBytes("\\Images\\img4.jpg"),
           ImageMimeType = "image/jpeg",
           PerCode=Permissions.Download | Permissions.General,

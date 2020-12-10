@@ -1,0 +1,117 @@
+﻿@*@model IEnumerable<Demo.Models.Bulletin>*@
+@using PagedList
+@using PagedList.Mvc
+
+@model IPagedList<CHOY.Models.Bulletin>
+
+
+@{
+    ViewBag.Title = "Bulletins";
+}
+@*<div class="home_container home_color">
+        <div class="home_color2">
+            <div class="index_size">
+                @Html.Action("_addBul")
+                <div class="">
+                    <hr />
+                    <h2 class="">公告列表</h2>
+
+                    <table class="table">
+
+
+                        <tr class="head">
+                            <th class="text-center" style="width:100px;">公告編號</th>
+                            <th>內容摘要</th>
+                            <th>發布開始時間</th>
+                            <th>發布結束時間</th>
+                            <th>最後修改時間</th>
+                            <th style="width:200px;"></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="text-center">
+                                    @Html.DisplayFor(modelItem => item.BulletinID)
+                                </td>
+                                <td class="d-inline-block text-truncate">
+                                    @Html.DisplayFor(modelItem => item.Content)
+                                </td>
+                                <td>
+                                    @item.PublishStart
+                                </td>
+                                <td>
+                                    @item.PublishEnd
+                                </td>
+                                <td>
+                                    @item.EditTime
+                                </td>
+                                <td class="text-center">
+                                    @Html.ActionLink("內容", "Edit", new { id = item.BulletinID }, new { @class = "page_btn" })
+                                    @Html.ActionLink("刪除", "Delete", new { id = item.BulletinID }, new { @class = "page_btn", onclick = "return confirm('公告編號:「" + (item.BulletinID) + " 」\\n公告內容:「" + (item.Content) + "」\\n確定要刪除嗎？')" })
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+
+                    <div class="text-center ">
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+
+
+
+<div class="page-container">
+    <div class="index-inner">
+        @Html.Action("_addBul")
+        @*<hr />*@
+        <h2 class="font-middle  page-tittle">公告列表</h2>
+
+        <table class="table">
+            <tr>
+                <th class="text-center" style="width:100px;">公告編號</th>
+                <th>內容摘要</th>
+                <th>發布開始時間</th>
+                <th>發布結束時間</th>
+                <th>最後修改時間</th>
+                <th style="width:200px;"></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.BulletinID)
+                    </td>
+                    <td class="d-inline-block text-truncate">
+                        @Html.DisplayFor(modelItem => item.Content)
+                    </td>
+                    <td>
+                        @item.PublishStart
+                    </td>
+                    <td>
+                        @item.PublishEnd
+                    </td>
+                    <td>
+                        @item.EditTime
+                    </td>
+                    <td class="text-center ">
+                        @Html.ActionLink("內容", "Edit", new { id = item.BulletinID }, new { @class = "btn" })
+                        @Html.ActionLink("刪除", "Delete", new { id = item.BulletinID }, new { @class = "btn", onclick = "return confirm('公告編號:「" + (item.BulletinID) + " 」\\n公告內容:「" + (item.Content) + "」\\n確定要刪除嗎？')" })
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <div class="text-center ">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+        </div>
+
+    </div>
+</div>
