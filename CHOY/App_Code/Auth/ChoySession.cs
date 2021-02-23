@@ -12,9 +12,10 @@ namespace CHOY.App_Code.Auth
     /* add your session properties here. */
     public string LoginId { get; set; }
     public long LoginAt { get; set; }
+    public Permissions PerCode { get; set; }
 
-    /* Gets the current session. */
-    public static ChoySession Current 
+        /* Gets the current session. */
+        public static ChoySession Current 
     {
       get
       {

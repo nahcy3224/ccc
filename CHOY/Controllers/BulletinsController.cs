@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using CHOY.App_Code.Auth;
 using CHOY.DAL;
 using CHOY.Models;
 using PagedList;
@@ -16,8 +17,12 @@ namespace CHOY.Controllers
     {
         private ChoyContext db = new ChoyContext();
 
+        [checkPerCodeBulletin(flag = true)]
         public ActionResult Index(int page=1)
         {
+            var session = ChoySession.Current;
+            ViewBag.Who = session.PerCode;
+
             var data = db.Bulletins.OrderByDescending(p=>p.BulletinID).ToList();
 
             int pagesize = 5;
@@ -87,6 +92,9 @@ namespace CHOY.Controllers
 
         public ActionResult Edit(string id)
         {
+            var session = ChoySession.Current;
+            ViewBag.Who = session.PerCode;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -169,7 +177,7 @@ namespace CHOY.Controllers
 
             return PartialView(bulletin);
         }
-
+        [checkLoginStatus(flag = false)]
         public ActionResult _ShowBul(Bulletin bulletin)
         {
             var now = DateTime.Now;

@@ -22,3 +22,52 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/* jian fong*/
+#boards-sidebar {
+    background-color: #79a49a;
+    width: 300px;
+    height: 100%;
+    padding: 10px 30px;
+    position: fixed;
+    top: 0;
+    right: -300px;
+}
+#boards-sidebar.show {
+    right: 0;
+}
+#boards-sidebar>#boards-list {
+    height: calc(100% - 50px);
+}
+#boards-sidebar>button[data-choy-function="create-board"] {
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+#boards-sidebar>button#taggle-btn {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 0;
+    left: -50px;
+}
+.each-board {
+    position: relative;
+}
+.each-board>button {
+    background-color: #f00;
+    width: 30px;
+    height: 30px;
+    color: aliceblue;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(30%, -30%);
+}
+.each-board>a>canvas {
+    background-color: #fff;
+    width: 100%;
+}

@@ -8,186 +8,206 @@
         <div class="bulletin-show-box">
             @Html.Action("_ShowBul", "Bulletins")
         </div>
-        <div class="">
-            <div class="animation-back board-back">
-                <div class="slogen1"><p>Note By Any Way</p></div>
-                <div class="slogen2 font-large"><p>You Want</p></div>
-                <div class="btn-start btn" id="go_btn"><span>GO</span></div>
+        <div class="animation-back board-back">
+            <div class="slogen1"><p>Note By Any Way</p></div>
+            <div class="slogen2 font-large"><p>You Want</p></div>
+            <div class="btn-start btn" id="go_btn"><a href="#/login">GO</a></div>
+        </div>
+    </div>
+
+    <div class="sign-container" id="page_check">
+        @*<div class=" home_grid">*@
+        <form class=" " method="post" action="/Auth/Register" onsubmit="return handleRegister()">
+
+            @*<div class="sign-container">*@
+            <h2 class="font-middle text-center">
+                Set password
+            </h2>
+
+            <div class="sign-inner">
+                <label for="PasswordForSet">Password</label>
+                <div><input type="Password" id="PasswordForSet" name="Password"></div>
+            </div>
+
+            <div class="sign-inner">
+                <label for="confirmPwd">Password Confirm</label>
+                <div><input type="Password" id="confirmPwd" name="confirmPwd"></div>
+
+            </div>
+            <div class="text-center text-danger"><span id="errorMessagesForSetPassword" class="error_message"></span></div>
+            
+
+            <div class="">
+                <input type="Submit" value="Submit" class=" btn">
+
+            </div>
+            @*</div>*@
+
+        </form>
+        @*</div>*@
+    </div>
+
+
+    <div class="sign-container" id="page_reg">
+
+        <h2 class="font-middle">Become Member</h2>
+        <form method="post" action="api/auth/verifyEmailAddress" onsubmit="return handleVerifyEmailAddress()">
+
+            <div class="sign-inner">
+                <label for="Email" class="">Email</label>
+                <input type="email" id="Email" name="Email" placeholder="">
+            </div>
+
+            <div class="sign-inner">
+                <label for="UserName" class="">NickName</label>
+                <input type="text" register_grid id="UserName" name="UserName">
+            </div>
+
+            <div class="sign-inner">
+                <label for="Gender" class="">Gender</label>
+                <div class="chose-box">
+                    <input type="radio" name="Gender" value="1" id="grnder_0" checked>
+                    <label for="grnder_0">Male</label>
+                </div>
+                <div class="chose-box">
+                    <input type="radio" name="Gender" value="0" id="grnder_1">
+                    <label for="grnder_1">Female</label>
+                </div>
+            </div>
+
+            <div class="sign-inner">
+                <label for="Birthday" class="register_label">Birthday</label>
+                <input type="date" id="Birthday" name="Birthday">
             </div>
 
 
-        </div>
-    </div>
 
-    <div class="hp-inne" id="page_check">
-        <div class=" home_grid">
-            <form class="board-back flex_out" method="post" action="/Auth/Register" onsubmit="return handleRegister()">
-                @*@using (Html.BeginForm("Register", "Auth", FormMethod.Post, new { @class = "board_back flex_out" }))*@
-                @*{*@
-                <div class="check_box">
-                    <div>
-                        Set password
-                    </div>
-                    <div class="flex">
-                        <label for="PasswordForSet" class="register_label">Password</label>
-                        <input type="Password" id="PasswordForSet" name="Password">
-                    </div>
-                    <div class="flex">
-                        <label for="confirmPwd" class="register_label">Password Confirm</label>
-                        <input type="Password" id="confirmPwd" name="confirmPwd">
-                    </div>
-                    <span id="errorMessagesForSetPassword" class="error_message"></span>
-                    <div class="flex">
-                        <input type="Submit" value="Submit" class=" input_btn btn_sub">
-                        <!-- <input type="button" value="Reset" class="input_btn"> -->
-                    </div>
-                </div>
-                @*}*@
-            </form>
+            <div class="reg-conditions">
+                <input type="checkbox" id="agree" name="agree" value="agree">
+                <label for="agree">I have read and agree to <a href="">the terms and conditions</a>.</label>
+            </div>
+
+            <span id="errorMessagesForRegister" class="error-message"></span>
+
+            <div class="">
+                <input type="submit" value="Submit" class="btn">
+            </div>
+
+        </form>
+        <div class="ani hidden">
+            <img src="~/Images/anime.gif" />
         </div>
     </div>
 
 
-    <div class="" id="page_reg">
-        <div class="index-inner">
-            <h2 class="font-middle">Become Member</h2>
-            <form method="post" action="api/auth/verifyEmailAddress" onsubmit="return handleVerifyEmailAddress()">
-                @* @using (Html.BeginForm("Register", "Auth", FormMethod.Post))
-                    { *@
-                <div class="flex_out">
-                    <div class="flex">
-                        <label for="Email" class="">Email</label>
-                        <input type="email" id="Email" name="Email" placeholder="">
-                    </div>
 
-                    <div class="flex">
-                        <label for="UserName" class="">Username</label>
-                        <input type="text" register_grid id="UserName" name="UserName">
-                    </div>
+    <div class="sign-container" id="page_login">
 
-                    <div class="flex">
-                        <label for="Gender" class="">Gender</label>
-                        <div class="chose-box">
-                            <input type="radio" name="Gender" value="1" id="grnder_0" checked>
-                            <label for="grnder_0">Male</label>
-                            <input type="radio" name="Gender" value="0" id="grnder_1">
-                            <label for="grnder_1">Female</label>
-                        </div>
-                    </div>
 
-                    <div class="flex">
-                        <label for="Birthday" class="register_label">Birthday</label>
-                        <input type="date" id="Birthday" name="Birthday">
-                    </div>
+        <h2 class="font-middle">LOGIN</h2>
 
-                    <div class="register_term">
-                        <input type="checkbox" id="agree" name="agree" value="agree">
-                        <label for="agree">I have read and understood <a href="">the terms and conditions</a>.</label>
-                    </div>
-                    <span id="errorMessagesForRegister" class="error_message"></span>
+        <form method="post" action="/api/auth/login" onsubmit="return handleLogin()">
 
-                    <div class="flex">
-                        <input type="submit" value="Submit" class="input_btn btn_sub">
-                        <!-- <input type="button" value="Reset" class="input_btn"> -->
-                    </div>
-                </div>
-                @* } *@
-            </form>
-        </div>
+            <div class="sign-inner">
+                <label for="Account">Account</label>
+                <input type="text" id="Account" name="Account" placeholder="Your registered email">
+            </div>
+
+            <div class="sign-inner">
+                <label for="PasswordForLogin">Password</label>
+                <input type="Password" id="PasswordForLogin" name="Password">
+            </div>
+            <span id="errorMessagesForLogin" class="error-message"></span>
+
+            <div class="">
+                <input type="submit" value="Log In" class="btn">
+            </div>
+
+            <div class="">
+                <a href="javascript:void(0)"  data-toggle="modal" data-target="#forgetPasswordModal">Forget Password?</a>
+            </div>
+
+
+        </form>
+
     </div>
 
-    <div class="" id="page_login">
-        <div class="register_box">
-            <!-- <div class="login_position"> -->
-            <h2>LOGIN</h2>
-            <form method="post" action="/api/auth/login" onsubmit="return handleLogin()">
-                @* @using (Html.BeginForm("Login", "Auth", FormMethod.Post))
-                    {
-                      @Html.AntiForgeryToken() *@
-                <div class="flex_out">
-
-                    <div class="flex">
-                        <label for="Account" class="register_label">Account</label>
-                        <input type="text" id="Account" name="Account" placeholder="Your Email or MemberID">
-                    </div>
-
-                    <div class="flex">
-                        <label for="PasswordForLogin" class="register_label">Password</label>
-                        <input type="Password" register_grid id="PasswordForLogin" name="Password">
-                    </div>
-                    <span id="errorMessagesForLogin" class="error_message"></span>
-                    @* <span>@ViewBag.Error</span> *@
-
-                    <div class="flex">
-                        <input type="submit" value="Log in" class="input_btn btn_sub">
-                    </div>
-
-                    <div class="flex">
-                        <a href="">Forget Password?</a>
-                    </div>
-
-                </div>
-                @* } *@
-            </form>
-            <!-- </div> -->
-        </div>
+    <div class="ani hidden">
+        <img src="~/Images/anime.gif"/>
     </div>
 
 </div>
 
-<script>
-    var element = document.getElementsByClassName("nav-btn-box")[0];
-    element.addEventListener("click", myFunction);
-    function myFunction(e) {
-        var elems = document.querySelector(".non-active");
-        if (elems != null) {
-            elems.classList.remove("non-active");
-        }
-        e.target.classList.add("non-active");
-    }
+<div class="modal fade" id="forgetPasswordModal" data-backdrop="static" data-keyboard="false" tabindex="-1"   aria-labelledby="forgetPasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title font-middle" id="forgetPasswordModalLabel">Reset Password</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4 class="font-small">Please enter your registered email</h4>
+                <input type="email" name="" id="">
+                <span id="getElementById"></span>
+            </div>
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>*@
+                <button type="button" class="btn btn-primary" data-choy-function="forgetPassword">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*<script src="~/Scripts/Home-Index.js"></script>*@
+@*<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/js4/bootstrap.bundle.min.js"></script>*@
+@section Scripts
+{
+    <script src="~/Scripts/choy/common.js"></script>
+    <script src="~/Scripts/Home-Index.js"></script>
+    <script>
+        const forgetPasswordModal = document.getElementById('forgetPasswordModal')
+        const forgetPwd_errorMsg = forgetPasswordModal.querySelector('#getElementById')
 
-    /////////////////頁面跳轉(利用 #)////////////////////////
-    var page = document.getElementsByClassName('page-container')[0];
-    var page_reg = document.getElementById("page_reg");
-    var page_home = document.getElementById("page_home");
-    var page_login = document.getElementById("page_login");
-    var page_check = document.getElementById("page_check");
+        forgetPasswordModal.querySelectorAll('button[data-dismiss="modal"]').forEach(item => {
+            item.addEventListener('click', () => { // 取消關閉對話框時，清除輸入資料
+                const email = forgetPasswordModal.querySelector('input[type="email"]')
+                email.value = ''
+                forgetPwd_errorMsg.innerText = ''
+            })
+        })
 
-    function renderByUrl(url) {
-        var active = document.querySelector(".is-active");
-        if (active != null) {
-            active.classList.remove("is-active");
-        }
-        //若沒有hash值預設導向至#/
-        if (location.hash === "") {
-            location.href = "#/home";
-            return;
-        }
-        //路徑對應頁面內容
-        if (url === "#/" || url === "#/home") {
-            page_home.classList.add('is-active');
-        } else if (url === "#/login") {
-            page_login.classList.add('is-active');
-        } else if (url === "#/register") {
-            page_reg.classList.add('is-active');
-        } else if (url === "#/check") {
-            page_check.classList.add('is-active');
-            checkVerifyEmailAddressToken();
-        }
-    }
+        forgetPasswordModal.querySelector('[data-choy-function="forgetPassword"]').addEventListener('click', () => {
+            const email = forgetPasswordModal.querySelector('input[type="email"]')
+            forgetPwd_errorMsg.innerText = ''
 
-    //載入事件
-    window.addEventListener("load", function () {
-        //使用location.hash判斷頁面內容
-        renderByUrl(location.hash);
-        console.log(location.hash);
-    });
+            if (!checkEmail(email.value)) {
+                forgetPwd_errorMsg.innerText = 'Wrong email format'
+                return;
+            }
 
-    //監聽網址改變事件
-    window.addEventListener("hashchange", function () {
-        //使用location.hash判斷頁面內容
-        renderByUrl(location.hash);
-        console.log(location.hash);
-    });
-</script>
-<script src="~/Scripts/Home-Index.js"></script>
+            const api = '/api/auth/forgetPassword'
+            const successCallback = (response) => {
+                console.log(response)
+                email.value = ''
+            }
+            const errorCallback = (response) => {
+                const httpStatusCode = response.status
+                const result = response.responseJSON
+                switch (httpStatusCode) {
+                    case 404:
+                    // console.warn(result.Message)
+                    // break
+                    default:
+                        console.warn(result.Message)
+                        alert(result.Message)
+                        break
+                }
+            }
+            const data = { "Email": email.value }
+            response(api, "Post", successCallback, errorCallback, data)
+        })
+
+    </script>
+}

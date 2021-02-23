@@ -1,4 +1,61 @@
-﻿////////////生日日期限制/////////////////////////
+﻿////////////////////nav裡的按鈕切換////////////////////////////////////////////
+var element = document.getElementsByClassName("nav-btn-box")[0];
+element.addEventListener("click", myFunction);
+function myFunction(e) {
+	var elems = document.querySelector(".non-active");
+	if (elems != null) {
+		elems.classList.remove("non-active");
+	}
+	e.target.classList.add("non-active");
+}
+
+/////////////////頁面跳轉(利用 #)////////////////////////
+var page = document.getElementsByClassName('page-container')[0];
+var page_reg = document.getElementById("page_reg");
+var page_home = document.getElementById("page_home");
+var page_login = document.getElementById("page_login");
+var page_check = document.getElementById("page_check");
+
+function renderByUrl(url) {
+	var active = document.querySelector(".is-active");
+	if (active != null) {
+		active.classList.remove("is-active");
+	}
+	//若沒有hash值預設導向至#/
+	if (location.hash === "") {
+		location.href = "#/home";
+		return;
+	}
+	//路徑對應頁面內容
+	if (url === "#/" || url === "#/home") {
+		page_home.classList.add('is-active');
+	} else if (url === "#/login") {
+		page_login.classList.add('is-active');
+	} else if (url === "#/register") {
+		page_reg.classList.add('is-active');
+	} else if (url === "#/check") {
+		page_check.classList.add('is-active');
+		checkVerifyEmailAddressToken();
+	}
+}
+
+//載入事件
+window.addEventListener("load", function () {
+	//使用location.hash判斷頁面內容
+	renderByUrl(location.hash);
+	console.log(location.hash);
+});
+
+//監聽網址改變事件
+window.addEventListener("hashchange", function () {
+	//使用location.hash判斷頁面內容
+	renderByUrl(location.hash);
+	console.log(location.hash);
+});
+
+
+
+////////////生日日期限制/////////////////////////
 var today = new Date();
 var dd = today.getDate();
 var mm = today.getMonth() + 1; //January is 0!
@@ -36,9 +93,9 @@ function handleBlurOrInputForSetPwd() {
 	const confirmPwd = document.getElementById("confirmPwd").value;
 	const errorMsg = document.getElementById("errorMessagesForSetPassword");
 	if (pwd.length < 6 || pwd.length > 18) {
-		errorMsg.innerText = "密碼長度必須界在 6 ~ 18 個字元";
+		errorMsg.innerText = "Your password must be between 6 and 18 characters";
 	} else if (pwd !== confirmPwd) {
-		errorMsg.innerText = "兩次輸入的密碼必須一致";
+		errorMsg.innerText = "You must enter the same password twice in order to confirm it";
 	} else {
 		errorMsg.innerText = "";
 	}
@@ -62,22 +119,22 @@ function handleRegister() {
 	const confirmPwd = document.getElementById("confirmPwd").value;
 	const errorMsg = document.getElementById("errorMessagesForSetPassword");
 	if (pwd.length < 6 || pwd.length > 18) {
-		errorMsg.innerText = "密碼長度必須界在 6 ~ 18 個字元";
+		errorMsg.innerText = "Your password must be between 6 and 18 characters";
 		return false;
 	}
 	if (pwd !== confirmPwd) {
-		errorMsg.innerText = "兩次輸入的密碼必須一致";
+		errorMsg.innerText = "You must enter the same password twice in order to confirm it";
 		return false;
 	}
 	const settings = {
 		"url": "/api/auth/register",
 		"method": "POST",
-		"timeout": 0,  
-		"headers": { "Content-Type": "application/json"	},
+		"timeout": 0,
+		"headers": { "Content-Type": "application/json" },
 		"dataType": "json",
-		"data": JSON.stringify({ 
+		"data": JSON.stringify({
 			"Token": getUrlParameter("token"),
-			"Password": pwd 
+			"Password": pwd
 		}),
 	};
 
@@ -87,7 +144,7 @@ function handleRegister() {
 			alert(response.Messages);
 			document.location.href = "/";
 		}
-	}).fail(function(response){
+	}).fail(function (response) {
 		console.log(response);
 		switch (response.status) {
 			case 400:
@@ -95,7 +152,7 @@ function handleRegister() {
 				errorMsg.innerText = response.responseJSON.Messages;
 				break;
 			default:
-				errorMsg.innerText = "網站忙碌中，請稍後再試 !!!";
+				errorMsg.innerText = "Sorry, the server is busy. Please try again later";
 				break;
 		}
 	});
@@ -109,9 +166,9 @@ function handleBlurOrInputForRegister() {
 	const errorMsg = document.getElementById("errorMessagesForRegister");
 	emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
 	if (!emailRule.test(email)) {
-		errorMsg.innerText = "Email格式錯誤!!";
-	} else if (birthday === "")	{
-		errorMsg.innerText = "Birthday不能為空";
+		errorMsg.innerText = "Wrong email format.";
+	} else if (birthday === "") {
+		errorMsg.innerText = "Birthday is required";
 	} else {
 		errorMsg.innerText = "";
 	}
@@ -142,23 +199,23 @@ function handleVerifyEmailAddress() {
 
 
 	if (email === "") {
-		errorMsg.innerText = "Email不能為空";
+		errorMsg.innerText = "Email is required.";
 		submitBtn.disabled = false;
 		return false;
 	}
 
-	if (userName !== "" && userName.length > 15)	{
-		errorMsg.innerText = "Username不能超過15個字";
+	if (userName !== "" && userName.length > 15) {
+		errorMsg.innerText = "Your nickname cannot be longer than 15 characters.";
 		submitBtn.disabled = false;
 		return false;
 	}
-	if (birthday === "")	{
-		errorMsg.innerText = "Birthday不能為空";
+	if (birthday === "") {
+		errorMsg.innerText = "Birthday is required.";
 		submitBtn.disabled = false;
 		return false;
 	}
-	if (!agree)	{
-		errorMsg.innerText = "請點選我同意條款";
+	if (!agree) {
+		errorMsg.innerText = 'Please tick the box "I have read and accept  the terms and conditions" to indicate your consent.';
 		submitBtn.disabled = false;
 		return false;
 	}
@@ -182,22 +239,24 @@ function handleVerifyEmailAddress() {
 		"dataType": "json",
 		"data": JSON.stringify(data),
 	};
-
+	document.querySelector('.ani').classList.toggle('hidden')
 	$.ajax(settings).done(function (response) {
+		document.querySelector('.ani').classList.toggle('hidden')
 		console.log(response);
 		if (response.Success) {
 			alert(response.Messages);
 			document.location.href = "/";
 			submitBtn.disabled = false;
 		}
-	}).fail(function(response) {
+	}).fail(function (response) {
+		document.querySelector('.ani').classList.toggle('hidden')
 		console.log(response);
 		switch (response.status) {
 			case 400:
 				errorMsg.innerText = response.responseJSON.Messages;
 				break;
 			default:
-				errorMsg.innerText = "網站忙碌中，請稍後再試 !!!";
+				errorMsg.innerText = "Sorry, the server is busy. Please try again later.";
 				break;
 		}
 		submitBtn.disabled = false;
@@ -210,7 +269,7 @@ function handleBlurOrInputForLogin() {
 	const errorMsg = document.getElementById("errorMessagesForLogin");
 	const password = document.getElementById("PasswordForLogin").value;
 	if (password.length < 6 || password.length > 18) {
-		errorMsg.innerText = "密碼格式錯誤!!!";
+		errorMsg.innerText = "Wrong password format";
 	} else {
 		errorMsg.innerText = "";
 	}
@@ -229,13 +288,12 @@ function handleLogin() {
 	const account = document.getElementById("Account").value;
 	const password = document.getElementById("PasswordForLogin").value;
 	const errorMsg = document.getElementById("errorMessagesForLogin");
-	if (account.length === 0 || password.length === 0)
-	{
-		errorMsg.innerText = "請輸入帳號或密碼!!!"
+	if (account.length === 0 || password.length === 0) {
+		errorMsg.innerText = "Enter your email and password"
 		return false;
 	}
 	if (password.length < 6 || password.length > 18) {
-		errorMsg.innerText = "密碼格式錯誤!!!";
+		errorMsg.innerText = "Wrong password format";
 		return false;
 	}
 
@@ -243,10 +301,8 @@ function handleLogin() {
 		"url": "/api/auth/login",
 		"method": "POST",
 		"timeout": 0,
-		"headers": {
-			"Content-Type": "application/json",
-		},
-		// "dataType": "json",
+		"headers": { "Content-Type": "application/json" },
+		"dataType": "json",
 		"data": JSON.stringify({
 			Account: account,
 			Password: password
@@ -256,15 +312,16 @@ function handleLogin() {
 	$.ajax(settings).done(function (response) {
 		if (response.Success) {
 			alert(response.Messages);
-			document.location.href = "/";
-		} 
-	}).fail(function(response) {
+
+			document.location.href = "/Project/Index";
+		}
+	}).fail(function (response) {
 		switch (response.status) {
 			case 404:
 				errorMsg.innerText = response.responseJSON.Messages;
 				break;
 			default:
-				errorMsg.innerText = "網站忙碌中，請稍後再試 !!!";
+				errorMsg.innerText = "Sorry, the server is busy. Please try again later.";
 				break;
 		}
 	});

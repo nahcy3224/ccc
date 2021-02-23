@@ -59,6 +59,89 @@
     height: 100%;
 }
 
+.sign-container{
+    width: 100%;  
+    font-size: 2.2rem;
+}
+
+
+.sign-container::before{
+  content: "";
+  display: inline-block;
+  height: 10%;
+  vertical-align: middle;
+}
+
+.sign-container>h2{
+    text-align: center;
+
+    margin:20px auto;
+}
+
+.sign-container>form{
+    display: flex;
+    flex-direction: column;
+
+    /*align-items: center;*/
+}
+
+.sign-container>form>div{
+    align-self:center;
+    margin:20px auto 15px auto;       
+}
+
+
+.sign-inner{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 400px;
+
+}
+
+
+.sign-inner>input{
+     height: 100%;
+    width: 300px;
+    font-weight: 100;
+    font-size: 1.8rem;
+    /*margin-top: 12px;*/
+    align-self: center;
+}
+.chose-box{
+
+    /*width: 300px;*/
+    text-align: center;
+    /*vertical-align: middle;*/
+}
+.chose-box>input{
+    vertical-align: middle;
+}
+@media screen and (max-width: 767px){
+    .sign-container::before{
+      display: none; 
+    }
+    .sign-inner{
+/*        display: flex;
+        flex-direction: column;
+        justify-content: space-between;*/
+        width: 350px;
+    }
+    .reg-conditions >label{
+        font-size: 1.6rem;
+    }
+    .sign-inner>input{
+        /*margin-top: 1rem;*/
+        width: 250px;
+    }
+
+}
+#agree{
+    margin: auto;
+    vertical-align:middle
+}
+
+
 .page-container .animation-back {
     /*grid-area:board;*/
     display: grid;
@@ -165,7 +248,27 @@
     height: 3.5rem;
     margin: auto;
 }
+#page_check{
+    margin: 3rem auto;
+}
 
+#page_check .sign-inner{
+    padding: 0 1rem;
+    width: 500px;
+    margin-top: 5rem;
+}
+#page_check .sign-inner .input{
+    width: 100px;
+}
+
+@media screen and (max-width: 767px){
+    #page_check .sign-inner{
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
 /*---------------公告跑馬燈---------------------*/
     blockquote {
         border-top: 2px solid #BCD2CD;
@@ -224,29 +327,6 @@
       color: #BCD2CD;
     }
 
-/*----------------------註冊頁面排版----------------*/
-    #page_reg label{
-        font-size: 2rem;
-        margin-top: 1rem;
-    }
-    #page_reg input{
-        font-size: 1rem;
-        margin-top: 0.3rem;
-    }
-    @media screen and (max-width: 767px){
-        #page_reg label{
-            font-size: 1.6rem;
-        }
-    }
-    /*#page_reg .chose-box{
-        align-self: center;
-        justify-self: center;
-    }*/
-
-    #page_reg>div{
-        height: 100%;
-        margin: auto;
-    }
 /*-----------------anime-------------*/
 @keyframes fadein-left {
     0% {
@@ -272,4 +352,77 @@
             opacity: 1;
         }
     }
+}
+
+/*-----------按鈕位置設定-----------------*/
+
+/*.flex input.btn{
+    margin: auto;
+}*/
+/*-----------忘記密碼-----*/
+.close{
+    font-size: 5rem;
+    font-weight: 200;
+
+    color: #ddd;
+    text-shadow:none;
+    position: relative;
+    bottom:-2rem;
+}
+.close:hover{
+    font-size: 5rem;
+    color: #fff;
+}
+
+.modal-content,.modal-header{
+    background-color: transparent;
+    border: none;
+    padding-bottom: none;
+    margin-bottom: none;
+}
+h3.modal-title{
+    color:#f3f3ee;
+    /*margin-bottom: none;*/
+    /*padding-bottom: none;*/
+    position: relative;
+    bottom:-2rem;
+}
+.modal-body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: none;
+    align-items: center;
+    /*padding-top: none;*/
+    background-color: #f3f3ee;
+    height:200px; 
+}
+.modal-body>input{
+    font-size: 2rem;
+    margin:2rem auto;
+    width: 80%;
+}
+
+.ani{
+    width: 100%;
+    height: 100%;
+    z-index: 500;
+    position: absolute;
+   top: 0;
+   left: 0;
+   
+    background-color: rgba(0,0,0,0.2); 
+}
+.ani> img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+/*-----------------------------------補充 by Jian Fong------------------------------------*/
+.error-message {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #e42424;
+    text-align: center;
 }

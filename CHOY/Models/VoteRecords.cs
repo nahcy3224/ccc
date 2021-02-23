@@ -12,19 +12,12 @@ namespace CHOY.Models
     public class VoteRecords
     {
         [ForeignKey("Vote")]
-        [Key]
         [DisplayName("投票編號")]
-        [Column(Order = 1)]
-        [Required]
-        [RegularExpression("V[0-9]{4}")]
-        public string VoteID { get; set; }
+        public int VoteID { get; set; }
 
         [Key]
         [DisplayName("選項編號")]
-        [Column(Order = 2)]
-        [Required]
-        [RegularExpression("C[0-9]{4}")]
-        public string ChoiceID { get; set; } = "C0000";
+        public int ChoiceID { get; set; }
 
         [DisplayName("選項")]
         [Required(ErrorMessage = "請輸入選項名稱")]
@@ -32,7 +25,7 @@ namespace CHOY.Models
         public string Choice { get; set; }
 
         [DisplayName("投票數")]
-        public Nullable<int> VoteCounts { get; set; }
+        public Nullable<int> VoteCounts { get; set; } = 0;
 
         public virtual Vote Vote { get; set; }
 

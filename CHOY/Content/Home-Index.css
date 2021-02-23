@@ -1,6 +1,6 @@
 ﻿
 /*---------------------------tag-----------------------------------*/
-
+/*
 input {
     font-size: 1rem;
     background-color: transparent;
@@ -14,28 +14,24 @@ input {
 
 a {
     text-decoration: none;
-    color:#79A49A;
+    color:#79A49A;*/
 }
 
 a:hover{
-    text-decoration:none;
+    /*text-decoration:none;
     color: #BCD2CD;
-    text-decoration: none;
+    text-decoration: none;*/
     /*background-color: #BCD2CD;*/
 }
 /*--------------------------public-----------------------------*/
 
-.flex_out {
+/*.flex_out {
     display: flex;
     flex-direction: column;
-    /*-webkit-flex-wrap: wrap;*/
-    /*flex-wrap: wrap;*/
-    /*justify-content: space-around;*/
-    /*width: 50%; */
     margin-top: 2rem;
-}
+}*/
 
-    .flex_out > div {
+    /*.flex_out > div {
         padding: 1rem 0 0.5rem 0;
     }
 
@@ -44,44 +40,45 @@ a:hover{
         padding: 12px 0;
     }
 }
+*/
 
-
-.flex {
+/*.flex {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     width: 350px;
-}
+}*/
 
     .flex > input {
-        width: 200px;
-        font-weight: 100;
-        align-self: center;
+       /* width: 200px;
+        font-weight: 100;*/
+        /*align-self: center;*/
     }
 
     .flex > div {
-        width: 180px;
+        /*width: 180px;*/
 
     }
 
     .flex > a {
-        margin: auto;
+       /* margin: auto;
+        font-size: 2rem;*/
     }
 .chose-box{
-    margin-right: 2rem;
+    /*margin-right: 2rem;*/
 }
 .chose-box>label{
-   padding: 0.1rem 1rem ; 
-   margin: auto;
+   /*padding: 0.1rem 1rem ; */
+   /*margin: auto;*/
 }
 .chose-box>input{
-    padding-bottom: 5rem ;
+    /*padding-bottom: 5rem ;*/
 }
 
 /*---------------------------------右方主體----------------------------------------*/
 
-.slogen_1 {
+/*.slogen_1 {
     grid-area: Board1;
     text-align: left;
     position: relative;
@@ -94,7 +91,6 @@ a:hover{
 
 @media screen and (max-width: 768px) {
     .slogen_1 {
-        /*display: none;*/
         font-size: 1.3rem;
         position: absolute;
         margin: 0 auto;
@@ -111,9 +107,9 @@ a:hover{
         left: 40px;
         top: 30px;
     }
-}
+}*/
 
-.slogen_2 {
+/*.slogen_2 {
     grid-area: Board2;
     align-self: center;
     text-align: center;
@@ -134,15 +130,14 @@ a:hover{
     .slogen_2 {
         font-size: 3rem;
     }
-}
+}*/
 
-.btn_start {
+/*.btn_start {
     grid-area: Board3;
-    /*justify-self: center;*/
     background-color: #79A49A;
     color: #fff;
     font-weight: 500;
-}
+}*/
 /*--------------------------------------------CHECK-----------------------------------*/
 .check_box {
     display: flex;
@@ -182,11 +177,10 @@ a:hover{
     }
 }
 
-/*----------------------------------------register----------------------------------------*/
+/*----------------------------------------register---------------------可砍了-------------------*/
 
 
-.input_btn {
-    /*border: 1px solid #bcd2cd;*/
+/*.input_btn {
     background-color: #79A49A;
     color: #fff;
     padding: 3px 10px;
@@ -201,7 +195,7 @@ a:hover{
     padding: 5px 15px;
     width: 300px;
     margin: auto;
-}
+}*/
 /*@media screen and (max-width: 768px) {
 	.btn_sub{
 
@@ -215,7 +209,7 @@ a:hover{
 */
 @media screen and (max-width: 576px) {
     .register_box {
-        padding: 10px;
+        /*padding: 10px;*/
     }
 }
 
@@ -230,7 +224,7 @@ a:hover{
     }
 }
 
-.flex_VCode {
+/*.flex_VCode {
     display: flex;
 }
 
@@ -243,34 +237,33 @@ a:hover{
             margin-top: 10px;
             width: 250px;
         }
-}
-/*---------------------------------------LogInPage-----------------------------		*/
-.login_box {
+}*/
+/*---------------------------------------LogInPage-------------------可砍了----------		*/
+/*.login_box {
     height: 100%;
-    /*padding-top: 200px;*/
-    /*margin: auto;*/
+
 }
 
     .login_box .flex_out {
-        /*padding-top: 3rem;*/
-        /*width: 380px;*/
+
+
         justify-content: space-around;
-    }
+    }*/
 /*---------------------------------------animate-----------------------------可砍了	*/
-    .show_anima {
-        animation-name: fadein-left; /*跟這個標籤(#square)說要執行的動畫名字*/
-        animation-duration: 1.5s; /*跟標籤(#square)說這個動畫要跑多久，我設定1秒即是我完成這個動畫需要1秒的時間*/
+  /*  .show_anima {
+        animation-name: fadein-left; 
+        animation-duration: 1.5s; 
         animation-iteration-count: 1;
         animation-fill-mode: forwards;
     }
 
     @keyframes fadein-left {
         0% {
-            transform: translateX(-100px); /*要讓他往右移，所以使用translateX屬性*/
-            opacity: 0; /*opacity的意思是透明度*/
+            transform: translateX(-100px); 
+            opacity: 0; 
         }
 
-        100% { /*這邊先設定動畫初始值*/
+        100% { 
             transform: translateX(0);
             opacity: 1;
         }
@@ -283,7 +276,7 @@ a:hover{
                 opacity: 0;
             }
 
-            100% { /*這邊先設定動畫初始值*/
+            100% { 
                 transform: translateY(0);
                 opacity: 1;
             }
@@ -301,13 +294,13 @@ a:hover{
         0% {
             transform: translateX(0);
             opacity: 1;
-            /*visibility: visible;*/
+            visibility: visible;
         }
 
         100% {
             transform: translateX(-100px);
             opacity: 0;
-            /*visibility: hidden;*/
+            visibility: hidden;
         }
     }
 
@@ -316,21 +309,21 @@ a:hover{
             0% {
                 transform: translateY(0);
                 opacity: 1;
-                /*visibility: visible;*/
+                visibility: visible;
             }
 
             100% {
                 transform: translateY(-100px);
                 opacity: 0;
-                /*visibility: hidden;*/
+                visibility: hidden;
             }
         }
-    }
+    }*/
 
 
-/*------------------------------- 公告跑馬燈視窗---------------------*/
+/*------------------------------- 公告跑馬燈視窗-------------------可砍了--*/
 
-    @media screen and (max-width: 768px){
+   /* @media screen and (max-width: 768px){
         .bulletin_show_box{
             margin-top:5px;
         }
@@ -354,7 +347,6 @@ a:hover{
       outline: black;
       background-size: 100%, 100%;
       border-radius: 50%;
-      /* border: 1px solid black; */
       background-image: none;
     }
 
@@ -369,10 +361,10 @@ a:hover{
       content: '<';
       font-size: 55px;
       color: #BCD2CD;
-    }
+    }*/
 /*-----------------------------------補充 by Jian Fong------------------------------------*/
-.error_message {
+/*.error_message {
     font-size: 0.9rem;
     font-weight: 700;
     color: #e42424;
-}
+}*/

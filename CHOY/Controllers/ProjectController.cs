@@ -18,10 +18,13 @@ namespace CHOY.Controllers
 
         // GET: Project
         public ActionResult Index()
-        {
-            var session =  ChoySession.Current;
+        {  
+            var session = ChoySession.Current;
             var MemberID = session.LoginId;
-            var projects = db.Projects.Include(p => p.Member).Where(m=>m.MemberID==MemberID);
+ ViewBag.Who = session.PerCode;
+            //var MemberID = "M0002";
+            ViewBag.MemberID = MemberID;
+            var projects = db.Projects.Include(p => p.Member).Where(m=>m.MemberID==MemberID && m.DeleteAt==null);
             return View(projects.ToList());
         }
 
@@ -54,17 +57,24 @@ namespace CHOY.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Project project)
         {
-            //if (ModelState.IsValid)
-            //{
-               var session =  ChoySession.Current;
+         //   if (ModelState.IsValid)
+           // {
+                var session =  ChoySession.Current;
                 var MemberID = session.LoginId;
                 project.ProjectID = "P0000";
-                project.CreateAt = DateTime.Today;
+                project.CreateAt = DateTime.Now;
                 project.MemberID = MemberID;
                 db.Projects.Add(project);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                var lastProjects = db.Projects.OrderByDescending(p=>p.ProjectID).FirstOrDefault();
+                db.Boards.Add(new Board{
+                    ProjectID = lastProjects.ProjectID,
+                    MemberIDOwner = lastProjects.MemberID,
+                });
+                db.SaveChanges();
             //}
+                return RedirectToAction("Index");
+            
 
             //ViewBag.MemberID = new SelectList(db.Members, "MemberID", "Email", project.MemberID);
             //return View(project);
@@ -103,24 +113,13 @@ namespace CHOY.Controllers
             return View(project);
         }
 
-     
-        // POST: Groups/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        // [ValidateAntiForgeryToken]
-        public ActionResult Delete(Board board,string pid)
-        {
-            
-            IEnumerable<Board> boardrList = db.Boards.Where(m => m.ProjectID == pid);
-            if (board != null)
-            {
-                foreach (var item in boardrList)
-                {
-                    db.Boards.Remove(item);
-                }
-            }
 
-            Project project = db.Projects.Where(m =>  m.ProjectID == pid).FirstOrDefault();
-            db.Projects.Remove(project);
+
+        // POST: Groups/Delete/
+        public ActionResult Delete(Project project, string pid)
+        {
+            var pro = db.Projects.Where(m => m.ProjectID == pid).FirstOrDefault();
+            pro.DeleteAt = DateTime.Now;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

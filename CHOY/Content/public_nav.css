@@ -395,14 +395,14 @@
   		content: '群組';
   	}
   	.member-list>a:nth-of-type(3):hover::before{
-  		content: '個人頁面';
+  		content: '個人資訊';
   	}
 
   	.manger-list>a:nth-of-type(1):hover::before{
-  		content: '公告';
+  		content: '公告管理';
   	}
   	.manger-list>a:nth-of-type(2):hover::before{
-  		content: '會員停權';
+  		content: '會員設定';
   	}
   	.manger-list>a:nth-of-type(3):hover::before{
   		content: '設定管理者';
@@ -412,12 +412,8 @@
   	}
 
 
-
-  	.content-container .list-footer a{
-		margin-left: 25px;
-		
-	}
 	.content-container .list-footer a {
+		margin-left: 25px;
 		margin-top: 200px;
 		color:#79a49a;
 	}
@@ -489,3 +485,95 @@
   	.contact-list h2{
   		padding: 10px 5px 0px 10px;
   	}
+/*-----------------------------*/
+.tools-box{
+	padding-top: 2rem;
+	display: flex;
+	flex-direction: column;
+	/*justify-content: center;*/
+	align-items: center;
+	font-size: 2rem;
+
+}
+.tools-box>div{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.tools-box input,
+.tools-box button,
+.tools-box label{
+	width: 5rem;
+	height: 5rem;
+	background-color: transparent;
+	border:none;
+	text-align: center;
+	color: #373D43;
+	margin-top:8px;
+}
+
+.tools-box>img{
+	width: 3rem;
+	
+}
+.tools-box input[type="radio"]{
+	width: 1rem;
+	height: 1rem;
+}
+.tools-box input[type="range"]{
+	width:100%;
+	padding: none;
+ 
+}
+.tools-box .dropdown-item{
+	margin: 0;
+	/*padding: 0;*/
+}
+.brush-size-controller{
+	width: 100%;
+}
+.tools-box .dropdown-menu{
+	/*width: 0;*/
+	margin: 0;
+	padding: 0;
+}
+
+@media screen and (max-width: 767px){
+	.tools-box{
+		padding-top: 0;
+
+		flex-direction: row;
+		/*justify-content: center;*/
+		align-items: center;
+		font-size: 2rem;
+
+	}
+	.tools-box>div{
+
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+	}
+}
+
+#brush-resizer{
+	/*margin: 1rem;*/
+	padding: 0 ;
+}
+
+
+#tool-controller .dropdown-menu.show{
+	/*display: block;*/
+	width:1.9rem;
+	/*padding: 0;*/
+	/*margin: auto 0;*/
+}
+#tool-controller .dropdown-menu button{
+	width: auto;
+	height: auto;
+	/*width: */
+	/*padding: 0;*/
+	
+}

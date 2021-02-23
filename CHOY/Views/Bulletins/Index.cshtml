@@ -6,6 +6,14 @@
 
 
 @{
+    if (ViewBag.Who == 0)
+    {
+        Layout = "~/Views/Shared/_Layout_normal.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout_manager.cshtml";
+    }
     ViewBag.Title = "Bulletins";
 }
 @*<div class="home_container home_color">
@@ -75,30 +83,30 @@
 
         <table class="table">
             <tr>
-                <th class="text-center" style="width:100px;">公告編號</th>
-                <th>內容摘要</th>
-                <th>發布開始時間</th>
-                <th>發布結束時間</th>
-                <th>最後修改時間</th>
-                <th style="width:200px;"></th>
+                <th class="text-center font-small" style="width:120px;">公告編號</th>
+                <th class="font-small">內容摘要</th>
+                <th class="font-small">發布開始時間</th>
+                <th class="font-small">發布結束時間</th>
+                <th class="font-small">最後修改時間</th>
+                <th class="font-small" style="width:200px;"></th>
             </tr>
 
             @foreach (var item in Model)
             {
                 <tr>
-                    <td class="text-center">
+                    <td class="text-center font-tiny">
                         @Html.DisplayFor(modelItem => item.BulletinID)
                     </td>
-                    <td class="d-inline-block text-truncate">
+                    <td class="d-inline-block text-truncate font-tiny">
                         @Html.DisplayFor(modelItem => item.Content)
                     </td>
-                    <td>
+                    <td class="font-tiny">
                         @item.PublishStart
                     </td>
-                    <td>
+                    <td class="font-tiny">
                         @item.PublishEnd
                     </td>
-                    <td>
+                    <td class="font-tiny">
                         @item.EditTime
                     </td>
                     <td class="text-center ">

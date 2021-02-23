@@ -1,0 +1,34 @@
+
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8" />
+<title></title>
+<style type="text/css">
+	#myMessage{
+		border:1px solid;
+	}
+</style>
+</head>
+<body>
+<div id="myMessage">這裡是顯現文字的地方</div>
+<script type="text/javascript">
+//右键菜单类
+var CountDownSecond = 3; //讓倒數計時器一開始的數字是10，10秒鐘後關閉視窗
+var OpenWindows = window.open("http://www.google.com.tw","new_window","width=400,height=300","");
+CountDown();
+function CountDown() {
+if (CountDownSecond !=0) {
+CountDownSecond -= 1;
+document.getElementById("myMessage").innerHTML = "視窗關閉倒數 " + CountDownSecond + " 秒";
+} else {
+document.getElementById("myMessage").innerHTML = "視窗關閉！";
+OpenWindows.close();
+return;
+}
+setTimeout("CountDown()",1000);
+}
+</script>
+</body>
+</html>

@@ -1,13 +1,12 @@
 ﻿@model IEnumerable<CHOY.Models.GroupMember>
 
-<p>
 
-    </p>
 <table class="table">
-    <tr>
-        <th>
+<tbody >
+    <tr class="submenu-item ">
+        @*<th>
             @Html.DisplayNameFor(model => model.MemberIDInGroup)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Member.Email)
         </th>
@@ -15,17 +14,17 @@
             @Html.DisplayNameFor(model => model.Member.NickName)
         </th>
         @*<th>
-            @Html.ActionLink("Edit", "_CreateMemberInGroups", new { gid = model.GroupID, mid = model.MemberIDOwner }, new { @class = "btn btn-warning" })
-        </th>*@
+                @Html.ActionLink("Edit", "_CreateMemberInGroups", new { gid = model.GroupID, mid = model.MemberIDOwner }, new { @class = "btn btn-warning" })
+            </th>*@
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
+        <tr class="submenu-item">
+            @*<td>
                 @Html.DisplayFor(modelItem => item.MemberIDInGroup)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Member.Email)
             </td>
@@ -35,11 +34,11 @@
             <td>
                 @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                     @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
-                @Html.ActionLink("Delete", "DeleteMember", new { gid = item.GroupID, id = item.MemberIDInGroup }, new { @class = "btn btn-warning", onclick = "return confirm('Are you sure you want to delete this Member?【" + (item.MemberIDInGroup) + "】')" })
+                @Html.ActionLink("Delete", "DeleteMember", new { gid = item.GroupID, id = item.MemberIDInGroup }, new { @class = "btn", onclick = "return confirm('Are you sure you want to delete this Member?【" + (item.Member.Email) + "】')" })
                 @*@Html.ActionLink("Delete", "Delete", new { mid = item.MemberIDOwner, gid = item.GroupID }, new { @class = "btn btn-warning", onclick = "return confirm('Are you sure you want to delete this Member?會員名稱【" + (item.MemberIDInGroup) + "】')" })*@
 
             </td>
         </tr>
     }
-
+</tbody>
 </table>

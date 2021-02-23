@@ -85,24 +85,24 @@
     <div class="bulletin-create-container ">
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PublishStart, htmlAttributes: new { @class = "text-center" })
-            <div class="">
+            @Html.LabelFor(model => model.PublishStart)
+            <div class="font-tiny">
                 @Html.EditorFor(model => model.PublishStart, new { htmlAttributes = new { @id = "StartTime", @class = "", @type = "datetime-local", @oninput = "myFunction(this.value)", @required = " required" } })
                 @*@Html.ValidationMessageFor(model => model.PublishStart, "", new { @class = "text-danger" })*@
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PublishEnd, htmlAttributes: new { @class = "text-center" })
-            <div class="">
+            @Html.LabelFor(model => model.PublishEnd)
+            <div class="font-tiny">
                 @Html.EditorFor(model => model.PublishEnd, new { htmlAttributes = new { @id = "EndTime", @class = "", @type = "datetime-local", @required = " required" } })
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "" })
-            <div class="">
-                @Html.TextAreaFor(model => model.Content, 5, 50, new { @required = " required" })
+            <div class="font-small">
+                @Html.TextAreaFor(model => model.Content, 3, 40, new { @required = " required" })
             </div>
         </div>
 

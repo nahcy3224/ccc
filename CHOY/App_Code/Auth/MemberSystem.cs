@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using RestSharp;
+using System.IO;
+using System.Web;
 
 namespace CHOY.App_Code.Auth
 {
@@ -16,14 +18,21 @@ namespace CHOY.App_Code.Auth
     // 登入
     public bool Login(string account, string password)
     {
-      
+
       Member user = Validator.IsValidEmail(account)
         ? db.Members.Where(member => member.Email == account).FirstOrDefault()
         : db.Members.Where(member => member.MemberID == account).FirstOrDefault();
 
-      long salt = TimeConverter.ToTimestamp(user.CreateAt);
 
-      if (user == null || !ChoyPassword.Validate(password, salt, user.Psw))
+
+      if (user == null)
+      {
+        return false;
+      }
+
+      long salt = TimeConverter.ToTimestamp(user.CreateAt);
+      
+      if (!ChoyPassword.Validate(password, salt, user.Psw))
       {
         return false;
       }
@@ -31,6 +40,7 @@ namespace CHOY.App_Code.Auth
       ChoySession session = ChoySession.Current;
       session.LoginId = user.MemberID;
       session.LoginAt = TimeConverter.ToTimestamp(DateTime.Now);
+      session.PerCode = user.PerCode;
 
       return true;
     }
@@ -54,12 +64,18 @@ namespace CHOY.App_Code.Auth
 
       return true;
     }
-    // Email 驗證
-    // public bool SendValidationEmail()
-    // {
-    //   return true;
-    // }
+    public byte[] GetFileBytes(string path)
+    {
+      FileStream fileOnDisk = new FileStream(HttpRuntime.AppDomainAppPath + path, FileMode.Open);
+      byte[] fileBytes;
 
+      using (BinaryReader br = new BinaryReader(fileOnDisk))
+      {
+        fileBytes = br.ReadBytes((int)fileOnDisk.Length);
+      }
+      return fileBytes;
+
+    }
     /**
      * memberSystem.SendValidationEmailByAPI() 回復所代表意義
      * return 0 : 表示 Email 寄送成功

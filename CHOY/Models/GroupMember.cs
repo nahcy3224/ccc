@@ -21,7 +21,7 @@ namespace CHOY.Models
 
         [Key]
         [Column(Order = 3)]
-        [DisplayName("群組內的成員")]
+        [DisplayName("ID")]
         [ForeignKey("Member")]
         [Required]
         [RegularExpression("M[0-9]{4}")]

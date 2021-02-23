@@ -1,29 +1,22 @@
 ﻿@model CHOY.Models.Member
 
 @{
-    ViewBag.Title = "會員明細";
+    ViewBag.Title = "Edit Member Information";
 
 }
 
-<h2>是否停權</h2>
+
 
 <div class="page-container">
 
         <div class="edit-inner">
 
-            @using (Html.BeginForm())
-            {
-
-                @Html.ActionLink("←  回公告列表", "Index", null, new { @class = "home_close_btn" })
-
-            }
             @using (Html.BeginForm("Edit", "Members", FormMethod.Post, new { onsubmit = "return confirm('確定要保存修改內容嗎?')" }))
             {
                 @Html.AntiForgeryToken()
 
             <div class="form-horizontal">
-                <h4>會員</h4>
-                <hr />
+
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 @Html.HiddenFor(model => model.MemberID)
 
@@ -48,7 +41,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.NickName, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.NickName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.EditorFor(model => model.NickName, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.NickName, "", new { @class = "text-danger" })
                     </div>
                 </div>

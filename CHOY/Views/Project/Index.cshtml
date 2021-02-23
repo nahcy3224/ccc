@@ -1,54 +1,279 @@
 ﻿@model IEnumerable<CHOY.Models.Project>
 
 @{
-    ViewBag.Title = "Index";
+    if (ViewBag.Who == 0)
+    {
+        Layout = "~/Views/Shared/_Layout_normal.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout_manager.cshtml";
+    }
+    ViewBag.Title = "My Projects-";
 }
 
-<h2>Index</h2>
-
 <div class="page-container">
-    <p>
-        @Html.ActionLink("Create New Project", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            @*<th>
-                @Html.DisplayNameFor(model => model.Member.Email)
-            </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.ProjectName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreateAt)
-            </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.DeleteAt)
-            </th>*@
-            <th></th>
-        </tr>
+    <div class="project-page">
+        <form class="form-inline ">
+            <h2 class="font-middle  page-tittle">
+                Projects
+                @*<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>*@
+            </h2>
+        </form>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                @*<td>
-                    @Html.DisplayFor(modelItem => item.Member.Email)
-                </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProjectName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreateAt)
-                </td>
-                @*<td>
-                    @Html.DisplayFor(modelItem => item.DeleteAt)
-                </td>*@
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { pid=item.ProjectID}) |
-                    @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
-                    @Html.ActionLink("Delete", "Delete", new { pid = item.ProjectID }, new { @class = "btn btn-warning", onclick = "return confirm('Are you sure you want to delete this Group?群組名稱【" + (item.ProjectName) + "】')" })
-                </td>
-            </tr>
-        }
+        <div class="project-container">
 
-    </table>
+            @foreach (var item in Model)
+            {
+                @*<div class="project-box">*@
+
+                <div class="each-project" id="container_@item.ProjectID">
+
+                    <div class="dropdown" id="dropdown_@item.ProjectID">
+                        <button class="btn dropdown-btn" type="button" id="dropdownMenuButton_@item.ProjectID" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            …
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton-@item.ProjectID">
+                            @*<a class="dropdown-item font-small" href="#">Edit Name</a>*@
+                            @*<a class="dropdown-item font-small" href="#">Delete</a>*@
+                            @Html.ActionLink("Delete", "Delete", new { pid = item.ProjectID }, new { @class = "dropdown-item font-small", onclick = "return confirm('Are you sure you want to delete this Project?')" })
+                            @*<a class="dropdown-item font-small" href="#">Share</a>*@
+                            @Html.ActionLink("Share", "CreateW", "MemberJoinProjects", new { ProjectID = item.ProjectID, MemberID = item.MemberID }, new { @class = "dropdown-item font-small" })
+
+                        </div>
+                    </div>
+
+                    <div class="project-img">
+                        @*<div class="project-btn">．．．</div>*@
+
+                        <a href="javascript:void(0)" style="display: inline-block; width: 100%; height: 100%;">
+                            <canvas id="@item.ProjectID" class="hidden"></canvas>
+                        </a>
+                    </div>
+                    <div class="project-name font-small d-inline-block text-truncate">
+                        <input 
+                            type="text"
+                            style="text-align: center; border: 0" 
+                            value="@Html.DisplayFor(modelItem => item.ProjectName)"
+                            data-choy-project="@item.ProjectID"
+                            >
+                    </div>
+                </div>
+                @*</div>*@
+            }
+            <div class="each-project">
+                <div class="project-img add-pj" data-toggle="modal" data-target="#create">
+                    <img src="~/Images/plus.png" />
+                    @* @Html.ActionLink("新增","Create") *@
+                </div>
+            </div>
+            
+        </div>
+        <hr />
+        <h3 class="font-small">Shared with me</h3>
+        <div class="project-container"id="shared">
+            
+        </div>
     </div>
+</div>
+
+<div class="modal fade pj-create-box" id="create" data-backdrop="static" data-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title font-small" id="staticBackdropLabel">Create new project</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" action="/Project/Create">
+                @Html.AntiForgeryToken()
+                <div class="modal-body font-small">
+                    <div class="modal-text "></div>
+                    <input type="text" name="ProjectName" placeholder="Project Name" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!--
+    jian fong
+    暫時寫code在這
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    這是因為寫這裡程式碼吃不到 jquery 才加的，移到合適位子後，可以刪除 !!
+    <script src="~/Scripts/choy/common.js"></script> 相依於 jquery，須放在 jquery 之後
+    如果看不到東西可能是只有Project沒有Board 或是 DB 裡面預設為NULL
+-->
+<script src="~/Scripts/choy/fabric-2.4.3.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/choy/common.js"></script>
+@*<script src="~/Scripts/js4/bootstrap.bundle.min.js"></script>*@
+
+
+<script>
+    const getOwnPerjects = (callback = null) => {
+        const api = `/api/member/boards/own`
+        const successCallback = (response) => {
+            const data = response.Data
+            if (callback)
+                callback(data)
+        }
+        const errorCallback = (response) => {
+            const httpStatusCode = response.status
+            const result = response.responseJSON
+            switch (httpStatusCode) {
+                case 404:
+                    console.warn(result.Message)
+                    break
+                default:
+                    console.warn(result.Message)
+                    alert("存取DB資料發生錯誤 !!")
+                    break
+            }
+        }
+        response(api, "GET", successCallback, errorCallback)
+    }
+    function updateOwnPerjects(data) {
+        data.forEach(item => {
+            const target = document.getElementById(item.ProjectID)
+            if (item.Data[0].Code != null) {
+                const canvas = new fabric.StaticCanvas(item.ProjectID, {
+                    backgroundColor: '#fff',
+                    width: 600,
+                    height: 400
+                })
+                const canvasData = JSON.parse(item.Data[0].Code)
+                // 如果有設定 background image，依其大小執行 resize
+                const width = 240
+                let height = 180
+                if (canvasData.backgroundImage) {
+                    canvas.setWidth(canvasData.backgroundImage.width)
+                    canvas.setHeight(canvasData.backgroundImage.height)
+                    const rate = width / canvasData.backgroundImage.width
+                    height = canvasData.backgroundImage.height * rate
+                } else {
+                    canvas.setWidth(600)
+                    canvas.setHeight(400)
+                }
+                canvas.loadFromJSON(canvasData)
+                target.style = `width: ${width}px; height: ${height}px;`
+                target.classList.remove('hidden')
+            }
+            const link = target.parentNode
+            link.href = `/board?ProjectID=${item.ProjectID}&BoardID=${item.Data[0].BoardID}`
+        })
+    }
+    getOwnPerjects(updateOwnPerjects)
+
+
+
+    const getSharedProjects = (callback = null) => {
+        const api = `/api/member/boards/shared`
+        const successCallback = (response) => {
+            const data = response.Data
+            console.log(data)
+            if (callback)
+                callback(data)
+        }
+        const errorCallback = (response) => {
+            const httpStatusCode = response.status
+            const result = response.responseJSON
+            switch (httpStatusCode) {
+                case 404:
+                    console.warn(result.Message)
+                    break
+                default:
+                    console.warn(result.Message)
+                    alert("存取DB資料發生錯誤 !!")
+                    break
+            }
+        }
+        response(api, "GET", successCallback, errorCallback)
+    }
+    function updateSharedPerjects(data) {
+        let result = ''
+        data.forEach(item => {
+            result += `
+                <div class="each-project" id="container_${item.ProjectID}">
+                        <div class="project-img">
+                            <a href="javascript:void(0)" style="display: inline-block; width: 100%; height: 100%;">
+                                <canvas id="${item.ProjectID}" class="hidden"></canvas>
+                            </a>
+                        </div>
+                        <div class="project-name font-small d-inline-block text-truncate">
+                            ${item.ProjectName}
+                        </div>
+                </div>`
+        })
+        document.getElementById("shared").innerHTML = result
+        result = ''
+        data.forEach(item => {
+            const target = document.getElementById(item.ProjectID)
+            if (item.Data[0].Code != null) {
+                const canvas = new fabric.StaticCanvas(item.ProjectID, {
+                    backgroundColor: '#fff',
+                    width: 600,
+                    height: 400
+                })
+                const canvasData = JSON.parse(item.Data[0].Code)
+                // 如果有設定 background image，依其大小執行 resize
+                const width = "240px"
+                let height = "180px"
+                if (canvasData.backgroundImage) {
+                    canvas.setWidth(canvasData.backgroundImage.width)
+                    canvas.setHeight(canvasData.backgroundImage.height)
+                    const rate = width / canvasData.backgroundImage.width
+                    height = canvasData.backgroundImage.height * rate
+                } else {
+                    canvas.setWidth(600)
+                    canvas.setHeight(400)
+                }
+                canvas.loadFromJSON(canvasData)
+                target.style = `width: ${width}; height: ${height};`
+                target.classList.remove('hidden')
+            }
+            const link = target.parentNode
+            link.href = `/board?ProjectID=${item.ProjectID}&BoardID=${item.Data[0].BoardID}`
+        })
+    }
+    getSharedProjects(updateSharedPerjects)
+
+    let projNaem = '';
+    document.querySelectorAll(".each-project>.project-name>input").forEach(item => {
+        item.addEventListener('focus', function () {
+            console.log('focus')
+            projNaem = this.value
+        })
+      item.addEventListener('blur', function () {
+        console.log('blur')
+        const projectId = this.dataset.choyProject
+        const newProjNaem = this.value
+        if (newProjNaem !== projNaem) {
+          const api = `/api/project/${projectId}/name/${newProjNaem}`          
+          const successCallback = (response) => {}
+          const errorCallback = (response) => {
+            const httpStatusCode = response.status
+            const result = response.responseJSON
+            switch (httpStatusCode) {
+              case 404:
+              // console.warn(result.Message)
+              // break
+              default:
+                console.warn(result.Message)
+                alert("更改失敗 !!")
+                break
+            }
+          }
+          response(api, "Patch", successCallback, errorCallback)
+        }
+      })
+    })
+</script>

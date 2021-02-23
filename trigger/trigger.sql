@@ -52,3 +52,122 @@ begin
  end
 end
 
+go
+--自動建立群組編號
+
+create trigger G_AutoNumber
+on Groups
+after insert
+as
+begin
+    declare @one char(1), 
+            @exid char(5),
+            @id varchar(4)     
+        select top 1 @exid=GroupID from Groups order by GroupID desc
+        set @one=left(@exid,1)
+        set @id=cast(right(@exid,4) as char)+1
+        update Groups set GroupID =@one+right('000'+cast(@id as varchar),4) where GroupID='G0000'
+end
+go
+
+-- 自動建立project ID
+create trigger AutoSetProjectID
+on Projects
+after insert
+as
+begin
+    declare 
+        @one char(1), 
+        @exid char(5),
+        @id varchar(4)     
+    select top 1 @exid = ProjectID 
+    from Projects 
+    order by ProjectID desc
+    set @one = left(@exid, 1)
+    set @id  = cast(right(@exid, 4) as char) + 1
+    update Projects 
+    set ProjectID = @one + right('000' + cast(@id as varchar), 4) 
+    where ProjectID = 'P0000'
+end
+go
+
+-- 自動建立 Board ID
+create trigger AutoSetBoardID
+on Boards
+after insert
+as
+begin
+    declare 
+        @one char(1), 
+        @exid char(5),
+        @id varchar(4)     
+    select top 1 @exid = BoardID 
+    from Boards 
+    order by BoardID desc
+    set @one = left(@exid, 1)
+    set @id  = cast(right(@exid, 4) as char) + 1
+    update Boards 
+    set BoardID = @one + right('000' + cast(@id as varchar), 4) 
+    where BoardID = 'B0000'
+end
+go
+
+CREATE trigger VoteRecords_checkVoting
+on VoteRecords
+AFTER UPDATE
+as
+BEGIN
+    declare 
+        @voteId int,
+        @result nvarchar(MAX)
+
+    SELECT @voteId = VoteID FROM inserted
+    
+    IF ((SELECT Result FROM Votes WHERE VoteID = @voteId) is null)
+    BEGIN
+        IF ((SELECT VoteCount FROM Votes WHERE VoteID = @voteId) 
+            = (SELECT SUM(VoteCounts) FROM VoteRecords WHERE VoteID = @voteId))
+        BEGIN
+            SELECT TOP 1 @result = Choice
+            FROM VoteRecords
+            WHERE VoteID = @voteId AND VoteCounts = (
+                SELECT MAX(VoteCounts)
+                FROM VoteRecords
+                WHERE VoteID = @voteId
+            )
+            ORDER BY NEWID()
+            UPDATE Votes SET Result = @result WHERE VoteID = @voteId
+        END
+    END
+END
+go
+---- 檢查投票是否已結束
+CREATE trigger Votes_checkVoting
+on Votes
+AFTER UPDATE
+as
+BEGIN
+    declare 
+        @voteId int,
+        @result nvarchar(MAX)
+
+    SELECT @voteId = VoteID FROM inserted
+    
+    IF ((SELECT Result FROM Votes WHERE VoteID = @voteId) is null)
+    BEGIN
+        IF ((SELECT VoteCount FROM Votes WHERE VoteID = @voteId) 
+            = (SELECT SUM(VoteCounts) FROM VoteRecords WHERE VoteID = @voteId))
+        BEGIN
+            SELECT TOP 1 @result = Choice
+            FROM VoteRecords
+            WHERE VoteID = @voteId AND VoteCounts = (
+                SELECT MAX(VoteCounts)
+                FROM VoteRecords
+                WHERE VoteID = @voteId
+            )
+            ORDER BY NEWID()
+            UPDATE Votes SET Result = @result WHERE VoteID = @voteId
+        END
+    END
+END
+go

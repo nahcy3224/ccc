@@ -5,137 +5,238 @@
 
 @model IPagedList<CHOY.Models.Member>
 @{
+    if (ViewBag.Who == 0)
+    {
+        Layout = "~/Views/Shared/_Layout_normal.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout_manager.cshtml";
+    }
     ViewBag.Title = "管理會員";
+    var iiiiiii = 0;
 }
-    <div class="page-container">
-   
-            <div class="index-inner">
-                <h2>管理會員</h2>
+<div class="page-container member-index">
 
-            
-                        @Html.ActionLink("下載會員資料", "ExportToExcel", null, new { @class = "btn btn-default" })
+    <div class="index-inner">
+        <h2 class="font-middle  page-tittle">會員設定  @Html.ActionLink("下載會員資料", "ExportToExcel", null, new { @class = "btn btn-default" })</h2>
 
 
-                <table class="table">
-                    <tr>
-                        <th>
-                            會員編號
-                            @*@Html.DisplayNameFor(model => model.MemberID)*@
-                        </th>
-                        <th>
-                            電子郵件
-                            @*@Html.DisplayNameFor(model => model.Email)*@
-                        </th>
-                        @*<th>
-                            @Html.DisplayNameFor(model => model.Psw)
+        
+
+        @*@using (Html.BeginForm("Index", "Members", FormMethod.Post, new { onsubmit = "return confirm('確定要保存修改內容嗎?')" }))
+            {*@
+        @*@Html.AntiForgeryToken()*@
+
+
+        <table class="table">
+            <tr>
+                <th class="text-center headcol" style="width:120px;">
+                    會員編號
+                </th>
+                <th style="width:180px;">
+                    電子郵件
+                </th>
+
+                <th style="width:300px;">
+                    暱稱
+                </th>
+                <th class="text-center" style="width:60px;">
+                    性別
+                </th>
+                <th style="width:130px;">
+                    生日
+                </th>
+                @*<th class="text-center" style="width:100px;">
+                    停權
                 </th>*@
-                        <th>
-                            會員
-                            @*@Html.DisplayNameFor(model => model.NickName)*@
-                        </th>
-                        <th>
-                            性別
-                            @*@Html.DisplayNameFor(model => model.Gender)*@
-                        </th>
-                        <th>
-                            生日
-                            @*@Html.DisplayNameFor(model => model.Bday)*@
-                        </th>
-                        @*<th>
-                備用電子郵件
-                @Html.DisplayNameFor(model => model.ContactEmail)
-                                </th>*@
-                        @*<th>
-                         @Html.DisplayNameFor(model => model.CreateAt)
-                </th>*@
-                        @*<th>
-                       @Html.DisplayNameFor(model => model.ProfilePic)
-                </th>*@
-                        @*<th>
-                        @Html.DisplayNameFor(model => model.ImageMimeType)
-                </th>*@
-                        <th>
-                            權限
-                            @*@Html.DisplayNameFor(model => model.PerCode)*@
-                        </th>
-                        <th>
-                            是否停權
-                            @*@Html.DisplayNameFor(model => model.IsSuspended)*@
-                        </th>
-                        @* <th>
-                 最後登入時間
-                @Html.DisplayNameFor(model => model.LastLogInTime)
-                                </th>*@
-                        <th></th>
-                    </tr>
+                <th class="text-center hidden">
+                    一般會員
+                </th>
+                <th class="text-center">
+                    公告功能
+                </th>
+                <th class="text-center">
+                    停權功能
+                </th>
+                <th class="text-center">
+                    下載會員資料
+                </th>
+                <th class="text-center">
+                    設定管理者
+                </th>
+                <th></th>
+                @*<th ></th>*@
+            </tr>
 
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.MemberID)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Email)
-                            </td>
-                            @*<td>
-                        @Html.DisplayFor(modelItem => item.Psw)
-                    </td>*@
-                            <td>
-                                @Html.DisplayFor(modelItem => item.NickName)
-                            </td>
-                            <td>
-                                @(item.Gender? "男" : "女")
-                                @*@Html.DisplayFor(modelItem => item.Gender)*@
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Bday)
-                            </td>
-                            @*<td>
-                        @Html.DisplayFor(modelItem => item.ContactEmail)
-                    </td>*@
-                            @*<td>
-                        @Html.DisplayFor(modelItem => item.CreateAt)
-                    </td>
-                    <td>
-                        <img src="@Url.Action("GetImage",new{  id=item.MemberID})" />
-                        @Html.DisplayFor(modelItem => item.ProfilePic)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ImageMimeType)
-                    </td>*@
-                            <td>
-                                @item.PerCode.GetDisplayName()
-                                @*@item.PerCode.GetDisplayName()*@
-                                @*@Html.DisplayFor(modelItem => item.PerCode)*@
-
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.IsSuspended)
-                            </td>
-                            @*<td>
-                        @Html.DisplayFor(modelItem => item.LastLogInTime)
-                    </td>*@
-                            <td>
-                                @Html.ActionLink("更改權限", "Edit", new { id = item.MemberID }) |
-                                @Html.ActionLink("詳細資料", "Display", new { id = item.MemberID })
-                                @*@Html.ActionLink("Delete", "Delete", new { id = item.MemberID })*@
-                            </td>
-                        </tr>
-                    }
-
-                </table>
-
-                <div class="text-center">
-                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
-                </div>
-
-                @section scripts
+            @foreach (var item in Model)
             {
-      
-                    <script src="~/Scripts/Customer-Export.js"></script>
-                }
+                <tr class="each">
+                    <td class="text-center headcol" data-toggle="collapse" href="#@item.MemberID" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        @Html.DisplayFor(modelItem => item.MemberID)
+                    </td>
+                    <td class="d-inline-block text-truncate">
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
 
-            </div>
-            
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NickName)
+                    </td>
+
+
+
+                    <td class="text-center">
+                        @(item.Gender ? "男" : "女")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Bday)
+                    </td>
+
+                    @*<form action="/Members/Suspend" method="post">*@
+                    @*<td class="text-center light-bar">
+
+                        <input type="checkbox" value="@item.MemberID" class="suspend" @(item.IsSuspended? "checked" : string.Empty)  data-toggle="modal" data-target="#staticBackdrop" />
+                    </td>*@
+                    @*</form>*@
+
+                <form method="post" action="/Members/Index">
+                    @Html.AntiForgeryToken()
+
+                    @foreach (Permissions ops in Enum.GetValues(typeof(Permissions)))
+                    {
+                        if (iiiiiii % 5 != 0)
+                        {
+                            <input class="hidden" type="text" name="id" value="@item.MemberID" />
+                            <td class="text-center light-bar">
+                                <input type="checkbox" @(item.PerCode.HasFlag(ops) ? "checked" : string.Empty) name="PerCode" value="@ops" />
+
+                            </td>
+                        }
+                        else
+                        {
+                            <input class="hidden" type="text" name="id" value="@item.MemberID" />
+                            <td class="text-center light-bar hidden">
+                                <input type="checkbox" @(item.PerCode.HasFlag(ops) ? "checked" : string.Empty) name="PerCode" value="@ops"/>
+
+                            </td>
+                        }
+                        iiiiiii++;
+                    }
+                    <td>
+                        <input type="submit" value="權限變更" class="btn" />
+                    </td>
+
+                    @*<td class="flex">*@
+                    @*<input type="submit" value="Save" class="btn" />*@
+                    @*@Html.ActionLink("更改權限", "Edit", new { id = item.MemberID }, new { @class = "btn" })*@
+                    @*@Html.ActionLink("詳細資料", "Display", new { id = item.MemberID }, new { @class = "btn" })*@
+                    @*</td>*@
+
+                </form>
+                </tr>
+
+                <tr class="collapse details-container" id="@item.MemberID">
+                    <td></td>
+                    <td  colspan="10">
+
+                        <div class="details font-tiny">
+                            <div>
+                                @Html.DisplayNameFor(modelItem => item.ContactEmail):
+                            @*</div>
+                            <div class=" ">*@
+                                @Html.DisplayFor(modelItem => item.ContactEmail)
+                            </div>
+                        @*</div>
+
+                        <div class="">*@
+                            <div>
+                                @Html.DisplayNameFor(modelItem => item.CreateAt):
+                            @*</div>
+                            <div class=" ">*@
+                                @Html.DisplayFor(modelItem => item.CreateAt)
+                            </div>
+                        @*</div>
+
+                        <div class="">*@
+                            @*<div>
+                                @Html.DisplayNameFor(modelItem => item.LastLogInTime):
+                                @Html.DisplayFor(modelItem => item.LastLogInTime)
+                            </div>*@
+                        </div>
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+        @*}*@
+
+        <div class="text-center">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+        </div>
     </div>
+</div>
+
+<div class="modal fade suspend-box" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            @*<div class="modal-header">
+                <button type="button" class="close leave-modal" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>*@
+
+            <form method="post" action="/Members/Suspend">
+                @Html.AntiForgeryToken()
+                <div class="modal-body font-small">
+                    <div class="modal-text text-center"></div>
+                    <input type="text" name="id" id="sus" class="hidden" />
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn leave-modal" data-dismiss="modal">NO</button>
+                    
+                    <input type="submit" value="YES" class="btn" />
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@*@section scripts
+            {
+    <script src="~/Scripts/Customer-Export.js"></script>
+}*@
+<script>
+
+
+    document.querySelectorAll('.suspend').forEach(item => { item.addEventListener('change', SuspendChange) })
+
+    function SuspendChange() {
+        var x = this.value;
+        var y = this.checked;
+        var z = this;
+        var text = document.getElementsByClassName('modal-text')[0];
+        var sus = document.getElementById('sus');
+        var close = document.getElementsByClassName('leave-modal')[0];
+
+      
+        sus.value = x;
+
+        if (y == true) {
+            text.innerHTML = '確定將' + x + '停權嗎?';
+         }
+        else {
+            text.innerHTML = '確定將' + x + '解除停權嗎?';
+        }
+
+        close.addEventListener("click", leave);
+
+        function leave() {
+            z.checked = !y;
+        }
+    }
+
+</script>

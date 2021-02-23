@@ -1,0 +1,39 @@
+﻿@model IEnumerable<CHOY.Models.MemberJoinProject>
+
+<table class="table">
+    <tr>
+        <th class="text-center font-small" >
+            @Html.DisplayNameFor(model => model.Member.Email)
+        </th>
+        <th  class="font-small" >
+            @Html.DisplayNameFor(model => model.Member.NickName)
+        </th>
+        <th class="font-small" >
+        </th>
+        @*<th>
+            @Html.ActionLink("Delete", "Delete", new { id = item.ProjectID, id = item.MemberIDJoin }, new { @class = "btn", onclick = "return confirm('Are you sure you want to delete these Member?')" })
+        </th>*@
+    </tr>
+
+@foreach (var item in Model) {
+
+    <tr>
+        <td class="text-center font-tiny">
+            @Html.DisplayFor(modelItem => item.Member.Email)
+        </td>
+        <td class="text-center font-tiny">
+            @Html.DisplayFor(modelItem => item.Member.NickName)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.SharePerID)
+        </td>*@
+    <td>
+        @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
+        @*@Html.ActionLink("Delete", "Delete", new { })*@
+        @Html.ActionLink("Delete", "DeleteMember", new { pid = item.ProjectID, id = item.MemberIDJoin , oid=item.MemberIDOwner }, new { @class = "btn", onclick = "return confirm('Are you sure you want to delete this Member?【" + (item.MemberIDJoin) + "】')" })
+
+    </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,293 @@
+﻿@{
+    if (ViewBag.Who == 0)
+    {
+        Layout = "~/Views/Shared/_Layout_board.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout_board_manager.cshtml";
+    }
+
+    //Layout = "~/Views/Shared/_Layout_board.cshtml";
+    ViewBag.Title = "Board";
+}
+<div class="page-container">
+    <div class="board-container">
+        <canvas id="choyCanvas"></canvas>
+        <div id="images-group"></div>
+    </div>
+    <div id="boards-sidebar">
+        <button id="taggle-btn">
+            ☰
+            @*<span></span>
+            <span></span>
+            <span></span>*@
+        </button>
+        <div id="boards-list"></div>
+        <button data-choy-function="create-board" class="btn">create</button>
+    </div>
+        <!--<div>-->
+   
+        @*<div id="upload-image-controller">
+            upload-image:
+            <input type="radio" name="upload-image" data-func="add-image" checked>
+            upload-background-image:
+            <input type="radio" name="upload-image" data-func="set-background-image">
+            <input type="file" name="" id="image-uploader">
+        </div>*@
+
+        @*<div id="brush-size-controller">
+            size:
+            <input id="brush-resizer" type="range" min="1" max="10" step="1" value="1">
+            <input id="brush-size-value" type="text" readonly>
+        </div>
+        <div id="brush-color-controller">
+            color:
+            <input id="brush-palette" type="color" name="">
+        </div>*@
+        @*<div id="ChoyCanvasMode-controller">
+            目前模式: <input id="choy-canvas-mode" type="text" readonly>
+            <button id="toggle-mode-btn">切換模式</button>
+        </div>*@
+        @*<div id="tool-controller">
+            <button data-obj="text">text</button>
+            <button data-obj="circle">circle</button>
+            <button data-obj="rect">rect</button>
+            <button data-obj="triangle">triangle</button>
+        </div>*@
+        @* <button id="tttt">123</button> *@
+    <!--</div>-->
+    @*<input class="btn btn-primary" type="button" value="投票系統" data-toggle="modal" data-target="#voteSystem">*@
+
+</div>
+<div class="modal fade" 
+    id="voteSystem" 
+    data-backdrop="static" 
+    data-keyboard="false" 
+    tabindex="-1"
+    aria-labelledby="voteSystemLabel" 
+    aria-hidden="true"
+    >
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="createVote-tab" href="#createVote" data-toggle="pill" role="tab"
+                           aria-controls="createVote" aria-selected="true">
+                            New
+                        </a>
+                    </li>
+
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="voting-tab" data-toggle="pill" href="#voting" role="tab" aria-controls="voting"
+                           aria-selected="false">
+                            Voting
+                        </a>
+                    </li>
+
+                    <li class="nav-item" role="presentation" >
+                        <a class="nav-link" id="voted-tab" data-toggle="pill" href="#voted" role="tab" aria-controls="voted"
+                           aria-selected="false" >
+                            Voted
+                        </a>
+                    </li>
+                </ul>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="font-middle">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" 
+                        id="createVote" 
+                        role="tabpanel" 
+                        aria-labelledby="createVote-tab"
+                        >
+                        <form id="create-vote-form" onsubmit="return false" class="text-center">
+
+                            <div class="create-vote-box">
+                                <div class="form-group">
+                                    <label for="voteName">Topic</label>
+                                    <input class="form-control" id="voteName" type="text" required />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="choice-1">Option 1</label>
+                                    <input type="text" class="form-control" id="choice-1" name="choice" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="choice-2">Option 2</label>
+                                    <input type="text" class="form-control" id="choice-2" name="choice" />
+                                </div>
+
+                                <div id="voting-items"></div>
+                                <input class="btn " type="button" value="Add option" data-choy-function="add-vote-item" />
+                                @*<hr />*@
+                            </div>
+                            <div class="text-right">
+                                <input class="btn btn-success" type="button" value="Start vote" data-choy-function="create-vote" />
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="tab-pane fade" id="voting" role="tabpanel" aria-labelledby="voting-tab"></div>
+                    <div class="tab-pane fade" id="voted" role="tabpanel" aria-labelledby="voted-tab"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+  <script>
+    function getMemberID() {
+      const memberId = '@ViewBag.MemberID';
+      return memberId;
+    }
+  </script>
+  <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+  <script src="@Url.Content("~/signalr/hubs")"></script>
+  <script src="~/Scripts/choy/fabric-2.4.3.js"></script>
+
+  <script src="~/Scripts/choy/common.js"></script>
+  <script src="~/Scripts/choy/board/lib.js"></script>
+  <script src="~/Scripts/choy/board/ImagesQueue.js"></script>
+  <script src="~/Scripts/choy/board/ChoySocket.js"></script>
+  <script src="~/Scripts/choy/board/ChoyCanvas.js"></script>
+  <script src="~/Scripts/choy/board/choyBoard.js"></script>
+  <script src="~/Scripts/choy/vote/script.js"></script>
+  <script>
+    document.querySelector('button#taggle-btn').addEventListener('click', () => {
+      document.getElementById('boards-sidebar').classList.toggle('show')
+    })
+    function getBoardData(callback = null) {
+      console.log('getBoardData')
+      const projectId = getUrlParameter('ProjectID')
+        ? getUrlParameter('ProjectID') : "P0001" // 暫時性內容，開發完成後請刪除
+      const api = `/api/project/${projectId}/boards`
+        const successCallback = (response) => {
+            const data = response.Data
+            console.log(data)
+            if (callback)
+                callback(data)
+        }
+        const errorCallback = (response) => {
+            const httpStatusCode = response.status
+            const result = response.responseJSON
+            switch (httpStatusCode) {
+                case 404:
+                    console.warn(result.Message)
+                    break
+                default:
+                    console.warn(result.Message)
+                    alert("存取DB資料發生錯誤 !!")
+                    break
+            }
+        }
+        response(api, "GET", successCallback, errorCallback)
+    }
+    function renderBoardData(data) {
+      console.log('renderBoardData')
+      let result = ''
+      document.getElementById('boards-list').innerHTML = ''
+      data.forEach(item => {
+        if (item.BoardID !== getUrlParameter('BoardID')) {
+          result += `
+            <div class="each-board" id="container_${item.BoardID}">
+              <button data-choy-target="${item.BoardID}" data-choy-function="del-board">X</button>
+              <a style="display: inline-block; width: 240px; height: 100%;"
+                href="/board?ProjectID=${item.ProjectID}&BoardID=${item.BoardID}"
+                >
+                <canvas id="${item.BoardID}"></canvas>
+              </a>
+            </div>`
+        }
+      })
+      document.getElementById('boards-list').innerHTML = result
+      addHandleDeleteBoardEvent()
+      data.forEach(item => {
+        if (item.BoardID !== getUrlParameter('BoardID')) {
+          const target = document.getElementById(item.BoardID)
+          if (item.Code != null) {
+            const canvas = new fabric.StaticCanvas(item.BoardID, {
+                backgroundColor: '#fff',
+                width: 600,
+                height: 400
+            })
+            const canvasData = JSON.parse(item.Code)
+            // 如果有設定 background image，依其大小執行 resize
+            const width = "240px"
+            let height = "180px"
+            if (canvasData.backgroundImage) {
+                canvas.setWidth(canvasData.backgroundImage.width)
+                canvas.setHeight(canvasData.backgroundImage.height)
+                const rate = width / canvasData.backgroundImage.width
+                height = canvasData.backgroundImage.height * rate
+            } else {
+                canvas.setWidth(600)
+                canvas.setHeight(400)
+            }
+            canvas.loadFromJSON(canvasData)
+            target.style = `width: ${width}; height: ${height};`
+          }
+        }
+      })
+    }
+    getBoardData(renderBoardData)
+    document.querySelectorAll('[data-choy-function="create-board"]').forEach(item => {
+      item.addEventListener('click', function() {
+        const projectId = getUrlParameter('ProjectID')
+        const api = `/api/project/${projectId}/board`
+        const successCallback = (response) => {
+          getBoardData(renderBoardData)
+        }
+        const errorCallback = (response) => {
+          const httpStatusCode = response.status
+          const result = response.responseJSON
+          switch (httpStatusCode) {
+            case 404:
+              console.warn(result.Message)
+              break
+            default:
+              console.warn(result.Message)
+              alert("存取DB資料發生錯誤 !!")
+              break
+          }
+        }
+        response(api, "POST", successCallback, errorCallback)
+      })
+    })
+    function addHandleDeleteBoardEvent() {
+      document.querySelectorAll('.each-board>[data-choy-function="del-board"]').forEach(item => {
+        item.addEventListener('click', function() {
+          const projectId = getUrlParameter('ProjectID')
+          const boardId = item.dataset.choyTarget
+          console.log(boardId)
+          const api = `/api/project/${projectId}/board/${boardId}`
+          const successCallback = (response) => {
+            console.log('addHandleDeleteBoardEvent')
+            getBoardData(renderBoardData)
+          }
+          const errorCallback = (response) => {
+            const httpStatusCode = response.status
+            const result = response.responseJSON
+            switch (httpStatusCode) {
+              case 404:
+                console.warn(result.Message)
+                break
+              default:
+                console.warn(result.Message)
+                alert("存取DB資料發生錯誤 !!")
+                break
+            }
+          }
+          response(api, "Delete", successCallback, errorCallback)
+        })
+      })
+    }
+  </script>
+}

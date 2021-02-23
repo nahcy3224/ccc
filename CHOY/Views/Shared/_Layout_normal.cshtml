@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title CHOY Board</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+    <link href="~/Content/croppie.css" rel="stylesheet" />
+    <link href="~/Content/public.css" rel="stylesheet" />
+    <link href="~/Content/public_nav.css" rel="stylesheet" />
+
+</head>
+<body>
+
+    <div class="nav-container">
+        <div class="bar">
+            <div class="nav-inner">
+
+                <a href="/Project/Index" class="nav-logo">
+                    <img src="~/Images/logo_dg_line.png" />
+                </a>
+
+                <div class="tools-box">
+
+                </div>
+
+                <div class="nav-trigger js-nav-trigger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="content-main">
+            <div class="content-inner">
+                <div class="content-title">
+                    <h1 class="font-large">WELCOME</h1>
+                </div>
+
+                <div class="list-container">
+                    <div class="content-list member-list">
+                        <h2 class="font-small">Member's</h2>
+                        @*<a href="" class="try-after">Projects</a>*@
+                        @Html.ActionLink("Projects", "Index", "Project")
+                        @*<a href="#">Groups</a>*@
+                        @Html.ActionLink("Groups", "Index", "Groups")
+                        @*<a href="">My Page</a>*@
+                        @Html.ActionLink("My Page", "EditMember", "Members")
+                    </div>
+
+                    @*<div class="content-list manger-list">
+                        <h2>Manager Page</h2>
+
+                        @Html.ActionLink("Bulletin", "Index", "Bulletins")
+
+                        @Html.ActionLink("Members", "Index", "Members")
+
+                    </div>*@
+                </div>
+                <div class="list-footer font-small">
+                    <a class="font-middle" href="/Home/Logout">Logout</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-list">
+
+            <div>
+                <h2 class="font-small">Info</h2>
+                <ul>
+                    <li>Taiwan</li>
+                </ul>
+            </div>
+
+            <div>
+                <h2 class="font-small">CONTACT US</h2>
+                <ul>
+                    <li>Email</li>
+                    <li>Telephone</li>
+
+                </ul>
+            </div>
+
+
+        </div>
+    </div>
+
+
+    @RenderBody()
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script>
+		////////////漢堡點擊事件//////////////////////////////
+
+		var nav_change = document.getElementsByClassName('nav-trigger')[0];
+		var content=document.getElementsByClassName('content-container')[0];
+
+		nav_change.addEventListener("click", nav_click);
+
+		function nav_click() {
+
+   			if(this.classList.contains('is-active')){
+   				this.classList.remove('is-active');
+   				content.classList.remove('is-active');
+   			}
+   			else{
+   				this.classList.add('is-active');
+   				content.classList.add('is-active');
+   			}
+		}
+
+
+    </script>
+</body>
+</html>

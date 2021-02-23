@@ -10,6 +10,7 @@ using System.Web.Http;
 using CHOY.DAL;
 using System.Data.Entity;
 using System.Web.Optimization;
+using CHOY.App_Start;
 
 namespace CHOY
 {
@@ -22,9 +23,10 @@ namespace CHOY
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 
             // Database Initialization
-            //Database.SetInitializer<ChoyContext>(new ChoyInitializer());
+            // Database.SetInitializer<ChoyContext>(new ChoyInitializer());
         }
         protected void Application_PostAuthorizeRequest()
         {

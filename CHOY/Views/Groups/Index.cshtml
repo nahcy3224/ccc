@@ -1,58 +1,161 @@
 ﻿@model IEnumerable<CHOY.Models.Group>
 
 @{
+    if (ViewBag.Who == 0)
+    {
+        Layout = "~/Views/Shared/_Layout_normal.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout_manager.cshtml";
+    }
     ViewBag.Title = "My Group";
 }
-    <div class="page-container">
-        <div class="index-inner">
-            <h2>My Group</h2>
+<div class="page-container">
+    <div class="index-inner">
+        <h2 class="font-middle  page-tittle">My Group</h2>
 
-            <p>
-                @Html.ActionLink("Create", "Create", "VMGroup")
-            </p>
-            <table class="table">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Member.MemberID)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.GroupName)
-                    </th>
-                    <th>
-
-                    </th>
-                </tr>
-
+        <div class="group-box">
+            <ul class="menu">
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Member.MemberID)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.GroupName)
-                        </td>
-                        <td>
+                    <li class="itembox drop-down">
+                        <div class="item">
+                            @*<p class="">@Html.DisplayFor(modelItem => item.GroupName)</p>*@
+                            <input class="text-box font-small"
+                                   type="text"
+                                   value="@item.GroupName"
+                                   data-choy-group="@item.GroupID" />
+
+                            <div>
+                                @*@Html.ActionLink("Edit", "Edit", new { mid = item.MemberID, gid = item.GroupID }, new { @class = "btn" })*@
+                                @Html.ActionLink("Delete", "Delete", new { mid = item.MemberID, gid = item.GroupID }, new { @class = "btn ", onclick = "return confirm('Are you sure you want to delete this Group?群組名稱【" + (item.GroupName) + "】')" })
+                            </div>
+                        </div>
+                        <div class="submenu">
                             @Html.Action("_MemberInGroups", "Groups", new { gid = item.GroupID, mid = item.MemberID })
-                            @*@Html.Action("_CreateMemberInGroups", "Groups", new { mid = item.MemberID, gid = item.GroupID })*@
-                        </td>
-
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new { mid = item.MemberID, gid = item.GroupID }, new { @class = "btn btn-warning" }) |
-
-                            @Html.ActionLink("Delete", "Delete", new { mid = item.MemberID, gid = item.GroupID }, new { @class = "btn btn-warning", onclick = "return confirm('Are you sure you want to delete this Group?群組名稱【" + (item.GroupName) + "】')" })
-
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            @Html.ActionLink("Add Member", "CreateMemberInGroups", new { gid = item.GroupID, mid = item.MemberID }, new { @class = "btn btn-warning" })
-                        </td>
-                    </tr>
+                            @Html.ActionLink("Add Member", "CreateMemberInGroups", new { gid = item.GroupID, mid = item.MemberID }, new { @class = "submenu-item" })
+                        </div>
+                    </li>
                 }
+                <li class="collapse" id="collapseExample">
+                    <form method="post" action="/Groups/Create" onsubmit="return handleCreateGroup()">
+                        @Html.AntiForgeryToken()
+                        <label for="GroupName" class="font-small">Name</label>
 
+                        <input type="text" class="font-small" name="GroupName" id="GroupName" />
+                        <input type="submit" value="Add" class="btn" />
 
-            </table>
+                    </form>
+                </li>
+                <li class="font-small"data-toggle="collapse"data-target="#collapseExample"aria-expanded="false"aria-controls="collapseExample">
+                    @*@Html.ActionLink("Create", "Create", "VMGroup")*@
+                    Add New Group
+                    @*@Html.ActionLink("Create", "Create")*@
+                </li>
+
+            </ul>
         </div>
     </div>
+</div>
+
+
+@*<div class="page-container">
+        <div class="index-inner">
+            <h2 class="font-middle  page-tittle">My Group</h2>
+            <div class="group-box">
+                <ul class="menu">
+                    @foreach (var item in Model)
+                    {
+
+                        <li class="itembox drop-down">
+                            <div href="#" class="item">
+                                <div>
+                                    <div class="form-group">
+                                        <div class="col-md-10">
+                                            <input  type="text" value="@item.GroupName" id="@item.GroupID" class="text-box" />
+
+                                        </div>
+                                    </div>
+                                    @Html.ActionLink("Delete", "Delete", new { mid = item.MemberID, gid = item.GroupID }, new { @class = "btn ", onclick = "return confirm('Are you sure you want to delete this Group?群組名稱【" + (item.GroupName) + "】')" })
+                                </div>
+                            </div>
+
+                            <div class="submenu">
+
+                                @Html.Action("_MemberInGroups", "Groups", new { gid = item.GroupID, mid = item.MemberID })
+
+                                @Html.ActionLink("Add Member", "CreateMemberInGroups", new { gid = item.GroupID, mid = item.MemberID }, new { @class = "submenu-item" })
+
+                            </div>
+                        </li>
+
+
+                    }
+                    <li>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
+                                Create
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                @Html.Partial("_Create")
+            </div>
+        </div>
+    </div>*@
+
+@section scripts
+{
+    <script src="~/Scripts/choy/common.js"></script>
+    <script>
+    function handleCreateGroup() {
+        return document.getElementById("GroupName").value !== ''
+            ? true : false
+    }
+    const groups = document.querySelectorAll('input[data-choy-group]')
+    let groupName = '';
+    groups.forEach(group => {
+      group.addEventListener('focus', function () {
+        groupName = this.value
+      })
+      group.addEventListener('blur', function () {
+
+        const groupId = this.dataset.choyGroup
+        const newGroupName = this.value
+        if (newGroupName !== groupName) {
+          const api = `/api/group/${groupId}/name/${newGroupName}`
+          const successCallback = (response) => { }
+          const errorCallback = (response) => {
+            const httpStatusCode = response.status
+            const result = response.responseJSON
+            switch (httpStatusCode) {
+              case 404:
+              // console.warn(result.Message)
+              // break
+              default:
+                console.warn(result.Message)
+                alert("更改失敗 !!")
+                break
+            }
+          }
+          response(api, "Patch", successCallback, errorCallback)
+        }
+      })
+    })
+
+
+    </script>
+}

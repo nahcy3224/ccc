@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using CHOY.App_Code.Auth;
 using CHOY.DAL;
 using CHOY.Models;
 
@@ -18,6 +19,9 @@ namespace CHOY.Controllers
         // GET: GroupMembers
         public ActionResult Index()
         {
+            var session = ChoySession.Current;
+            ViewBag.Who = session.PerCode;
+
             var groupMembers = db.GroupMembers.Include(g => g.Group);
             return View(groupMembers.ToList());
         }
@@ -40,6 +44,9 @@ namespace CHOY.Controllers
         // GET: GroupMembers/Create
         public ActionResult Create()
         {
+            var session = ChoySession.Current;
+            ViewBag.Who = session.PerCode;
+
             ViewBag.GroupID = new SelectList(db.Groups, "GroupID", "GroupName");
             return View();
         }
@@ -49,7 +56,7 @@ namespace CHOY.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "GroupID,MemberIDOwner,MemberIDInGroup")] GroupMember groupMember)
+        public ActionResult Create([Bind(Include = "GroupID, MemberIDOwner, MemberIDInGroup")] GroupMember groupMember)
         {
             if (ModelState.IsValid)
             {
@@ -65,6 +72,9 @@ namespace CHOY.Controllers
         // GET: GroupMembers/Edit/5
         public ActionResult Edit(string id)
         {
+            var session = ChoySession.Current;
+            ViewBag.Who = session.PerCode;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

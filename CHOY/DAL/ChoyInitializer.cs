@@ -7,6 +7,7 @@ using System.IO;
 using CHOY.Models;
 using CHOY.App_Code.Auth;
 using CHOY.App_Code.Common;
+using System.Data.Entity.Validation;
 
 namespace CHOY.DAL
 {
@@ -30,23 +31,23 @@ namespace CHOY.DAL
           CreateAt=now,
           ProfilePic=getFileBytes("\\Images\\img4.jpg"),
           ImageMimeType = "image/jpeg",
-          PerCode=Permissions.Download | Permissions.General,
+          PerCode=Permissions.Download | Permissions.Bulletin | Permissions.Manager |Permissions.Suspension,
           //IsSuspended=false,
           //LastLogInTime=null
         },
         new Member
         {
           MemberID="M0002",
-          Email="ncyuae104@gmail.com",
+          Email="s123038@gmail.com",
           Psw=ChoyPassword.Hash("000000", TimeConverter.ToTimestamp(now)),
           NickName="Chun",
           Gender=false,
           Bday=new DateTime(1993,06,08),
-          ContactEmail ="ncyuae104@gmail.com",
+          ContactEmail ="s123038@gmail.com",
            CreateAt=now,
           ProfilePic=getFileBytes("\\Images\\img4.jpg"),
           ImageMimeType = "image/jpeg",
-          PerCode=Permissions.Download,
+          PerCode=Permissions.Download | Permissions.Manager |Permissions.Suspension,
           //IsSuspended=false,
           // LastLogInTime=null
         },
@@ -62,7 +63,7 @@ namespace CHOY.DAL
           CreateAt=now,
           ProfilePic=getFileBytes("\\Images\\img4.jpg"),
           ImageMimeType = "image/jpeg",
-          PerCode=Permissions.Download | Permissions.General ,
+          PerCode=Permissions.Bulletin,
           IsSuspended=false,
           LastLogInTime=null
         }
@@ -79,7 +80,7 @@ namespace CHOY.DAL
           CreateAt=now,
           ProfilePic=getFileBytes("\\Images\\img4.jpg"),
           ImageMimeType = "image/jpeg",
-          PerCode=Permissions.Download | Permissions.General,
+          PerCode=Permissions.Download  | Permissions.Manager |Permissions.Suspension,
           IsSuspended=false,
           LastLogInTime=null
         }
@@ -96,6 +97,14 @@ namespace CHOY.DAL
           CreateAt=DateTime.Now,
           DeleteAt=null,
           MemberID="M0001"
+        },
+        new Project
+        {
+          ProjectID="P0002",
+          ProjectName="VueJS",
+          CreateAt=DateTime.Now,
+          DeleteAt=null,
+          MemberID="M0002"
         }
       };
       projects.ForEach(s => context.Projects.Add(s));
@@ -110,14 +119,14 @@ namespace CHOY.DAL
           MemberIDOwner="M0001",
           DeleteAt=null
         },
-          new Board
+        new Board
         {
           BoardID="B0002",
           ProjectID="P0001",
           MemberIDOwner="M0001",
           DeleteAt=null
         },
-            new Board
+        new Board
         {
           BoardID="B0003",
           ProjectID="P0001",
@@ -133,15 +142,25 @@ namespace CHOY.DAL
         new Bulletin
         {
           BulletinID = "N0001",
-          PublishStart = new DateTime(2020,12,11,0,0,0),
-          PublishEnd =  new DateTime(2020,12,18,0,0,0),
+          PublishStart = DateTime.Now.AddDays(3),
+          PublishEnd = DateTime.Now.AddDays(7),
           EditTime=DateTime.Now,
-          Content=""
+          Content="Test1 "
         }
       };
 
       bulletins.ForEach(s => context.Bulletins.Add(s));
       context.SaveChanges();
+      // try
+      // {
+      //     context.SaveChanges();
+      // }
+      // catch (DbEntityValidationException ex)
+      // {
+      //     var entityError = ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage);
+      //     var getFullMessage = string.Join("; ", entityError);
+      //     var exceptionMessage = string.Concat(ex.Message, "errors are: ", getFullMessage);
+      // }
 
       List<Group> groups = new List<Group>
       {
@@ -238,13 +257,23 @@ namespace CHOY.DAL
       {
         new Vote
         {
-          VoteID="V0001",
-          VoteName="你今天晚上要吃什麼?",
-          Result="鍋燒意麵",
+          VoteID=1,
+          VoteName="你今天早上要吃什麼?",
+          Result="日式拉麵",
           VoteCount=2,
           ProjectID="P0001",
           MemberIDOwner="M0001"
-        }
+        },
+        new Vote
+        {
+          VoteID=2,
+          VoteName="你今天中午要吃什麼?",
+          Result="日式拉麵",
+          VoteCount=2,
+          ProjectID="P0001",
+          MemberIDOwner="M0001"
+        },
+       
       };
       votes.ForEach(s => context.Votes.Add(s));
       context.SaveChanges();
@@ -253,22 +282,36 @@ namespace CHOY.DAL
       {
         new VoteRecords
         {
-          VoteID="V0001",
-          ChoiceID="C0001",
+          VoteID=1,
+          ChoiceID=1,
           Choice="鍋燒意麵",
           VoteCounts=1
         },
         new VoteRecords
         {
-          VoteID="V0001",
-          ChoiceID="C0002",
+          VoteID=1,
+          ChoiceID=2,
           Choice="義大利麵",
           VoteCounts=1
         },
         new VoteRecords
         {
-          VoteID="V0001",
-          ChoiceID="C0003",
+          VoteID=1,
+          ChoiceID=3,
+          Choice="日式拉麵",
+          VoteCounts=3
+        },
+        new VoteRecords
+        {
+          VoteID=2,
+          ChoiceID=4,
+          Choice="鍋燒意麵",
+          VoteCounts=1
+        },
+        new VoteRecords
+        {
+          VoteID=2,
+          ChoiceID=5,
           Choice="日式拉麵",
           VoteCounts=3
         }

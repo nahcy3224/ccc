@@ -14,37 +14,39 @@ namespace CHOY.Models
     {
         //[DefaultValue("M0000")]
         [Key]
-        [DisplayName("會員編號")]
+        [DisplayName("Member ID")]
         // [RegularExpression("M[0-9]{4}", ErrorMessage = "會員編號格式有誤")]
         public string MemberID { get; set; } = "M0000";
 
         
-        [DisplayName("帳號")]
-        [DataType(DataType.EmailAddress)]
+        //[DisplayName("信箱")]
+        //[DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        [DisplayName("密碼")]
+        [DisplayName("Password")]
         [StringLength(64)]
         [DataType(DataType.Password)]
         public string Psw { get; set; }
 
-        [DisplayName("暱稱")]
+        //[DisplayName("暱稱")]
+        [Required]
         [StringLength(15, ErrorMessage = "暱稱最多15個字")]
         public string NickName { get; set; }
 
-        [DisplayName("性別")]
+        [DisplayName("Gender")]
         public bool Gender { get; set; }
 
 
-        [DisplayName("生日")]
+        [DisplayName("Date of Birth")]
         [DataType(DataType.Date)]
         public System.DateTime? Bday { get; set; }
 
-        [DisplayName("備用電子郵件")]
-        [DataType(DataType.EmailAddress)]
+        [DisplayName("Contact Email")]
+        [Required]
+        //[DataType(DataType.EmailAddress)]
         public string ContactEmail { get; set; }
 
-        [DisplayName("建立的時間")]
+        [DisplayName("帳號建立時間")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public System.DateTime CreateAt { get; set; } = DateTime.Now;
@@ -56,16 +58,16 @@ namespace CHOY.Models
         public string ImageMimeType { get; set; }
 
         [DisplayName("權限代碼")]
-        public Permissions PerCode { get; set; }
+        public Permissions PerCode { get; set; } = 0;
 
         [DisplayName("是否停權")]
         public bool IsSuspended { get; set; } = false;
 
-        [DisplayName("最後上線時間")]
+        [DisplayName("最後登入時間")]
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{00:00:00:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public Nullable<System.DateTime> LastLogInTime { get; set; }
-
+        
 
         public virtual ICollection<Group> Group { get; set; }
         public virtual ICollection<MemberJoinProject> MemberJoinProject { get; set; }
@@ -81,6 +83,11 @@ public static class BoolExtensions
     public static string ToGender(this bool value)
     {
         return value ? "男" : "女";
+    }
+
+    public static string ToGenderEng(this bool value)
+    {
+        return value ? "Male" : "Female";
     }
 }
 
@@ -154,44 +161,44 @@ public static class EnumExtensions
 }
 
 
-public class FlagsEnumExample
-{
-    public static void Main()
-    {
-        Permissions all = Permissions.General | Permissions.Bulletin | Permissions.Suspension | Permissions.Download | Permissions.Manager;
-        Console.WriteLine(all);
+//public class FlagsEnumExample
+//{
+//    public static void Main()
+//    {
+//        Permissions all = Permissions.General | Permissions.Bulletin | Permissions.Suspension | Permissions.Download | Permissions.Manager;
+//        Console.WriteLine(all);
 
-        Permissions noLayout = Permissions.General | Permissions.Suspension | Permissions.Download | Permissions.Manager;
-        Console.WriteLine(noLayout);
+//        Permissions noLayout = Permissions.General | Permissions.Suspension | Permissions.Download | Permissions.Manager;
+//        Console.WriteLine(noLayout);
 
-        Permissions noMember = Permissions.General | Permissions.Bulletin |  Permissions.Download | Permissions.Manager;
-        Console.WriteLine(noMember);
+//        Permissions noMember = Permissions.General | Permissions.Bulletin |  Permissions.Download | Permissions.Manager;
+//        Console.WriteLine(noMember);
 
-        Permissions noDownload = Permissions.General | Permissions.Bulletin | Permissions.Suspension | Permissions.Manager;
-        Console.WriteLine(noDownload);
+//        Permissions noDownload = Permissions.General | Permissions.Bulletin | Permissions.Suspension | Permissions.Manager;
+//        Console.WriteLine(noDownload);
 
-        Permissions noPermit = Permissions.General | Permissions.Bulletin | Permissions.Suspension |  Permissions.Download;
-        Console.WriteLine(noPermit);
+//        Permissions noPermit = Permissions.General | Permissions.Bulletin | Permissions.Suspension |  Permissions.Download;
+//        Console.WriteLine(noPermit);
 
-        Permissions ten = Permissions.General | Permissions.Suspension | Permissions.Manager;
-        Console.WriteLine(ten);
+//        Permissions ten = Permissions.General | Permissions.Suspension | Permissions.Manager;
+//        Console.WriteLine(ten);
 
-        Permissions nine = Permissions.General | Permissions.Bulletin | Permissions.Manager;
-        Console.WriteLine(nine);
+//        Permissions nine = Permissions.General | Permissions.Bulletin | Permissions.Manager;
+//        Console.WriteLine(nine);
 
-        Permissions senven = Permissions.General | Permissions.Bulletin | Permissions.Suspension | Permissions.Download;
-        Console.WriteLine(senven);
+//        Permissions senven = Permissions.General | Permissions.Bulletin | Permissions.Suspension | Permissions.Download;
+//        Console.WriteLine(senven);
 
-        Permissions six = Permissions.General | Permissions.Suspension | Permissions.Download;
-        Console.WriteLine(six);
+//        Permissions six = Permissions.General | Permissions.Suspension | Permissions.Download;
+//        Console.WriteLine(six);
 
-        Permissions five = Permissions.General | Permissions.Bulletin | Permissions.Download;
-        Console.WriteLine(five);
+//        Permissions five = Permissions.General | Permissions.Bulletin | Permissions.Download;
+//        Console.WriteLine(five);
 
-        Permissions three = Permissions.General | Permissions.Bulletin | Permissions.Suspension;
-        Console.WriteLine(three);
-    }
-}
+//        Permissions three = Permissions.General | Permissions.Bulletin | Permissions.Suspension;
+//        Console.WriteLine(three);
+//    }
+//}
     // Output:
     // Layout | Member | Download | Permit
 

@@ -1,0 +1,55 @@
+﻿@model  IEnumerable<CHOY.Models.Group>
+
+@{
+    ViewBag.Title = "Create";
+    var Id = Request.QueryString["Id"];
+}
+
+<div class="modal-header">
+    <h5 class="modal-title" id="staticBackdropLabel">Create A New Group</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<form method="POST" action="/Groups/_Create" >
+
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+
+
+        <div class="form-group">
+            <label for="GroupName">Group Name:</label>
+            <input id="GroupName" name="GroupName" type="text" class="form-control" />
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+
+@*<div class="page-container">
+    <div class="edit-inner">
+        <h2>新增群組</h2>
+
+        <form method="post" action="@Url.Action("Create")">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label for="GroupName" class="col-md-2">群組名稱</label>
+                    <div class="col-md-10">
+                        <input id="GroupName" name="GroupName" type="text" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
+                        <input id="Submit1" type="submit" value="submit" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div>
+            @Html.ActionLink("返回我的群組列表", "Index", "Groups")
+
+        </div>
+    </div>
+</div>*@

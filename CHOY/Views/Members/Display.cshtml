@@ -4,15 +4,13 @@
 @{
     ViewBag.Title = "Display";
 }
-<div class="home_container home_color member_Index">
-    <div class="home_color2">
-        <div class="index_size">
-            <h2>@(((DateTime)ViewData["Date"]).ToString("D"))</h2>
+    <div class="page-container">
+        <div class="index-inner">
 
-            <div>
-                <h4>Member</h4>
-                <hr />
-                <dl class="dl-horizontal">
+            @*<h2>@(((DateTime)ViewData["Date"]).ToString("D"))</h2>*@
+
+            @*<div>
+                <dl>
                     <dt>
                         @Html.DisplayNameFor(model => model.Email)
                     </dt>
@@ -21,13 +19,6 @@
                         @Html.DisplayFor(model => model.Email)
                     </dd>
 
-                    @*<dt>
-                              @Html.DisplayNameFor(model => model.Psw)
-                          </dt>
-
-                        <dd>
-                              @Html.DisplayFor(model => model.Psw)
-                          </dd>*@
 
                     <dt>
                         @Html.DisplayNameFor(model => model.NickName)
@@ -44,7 +35,6 @@
 
                     <dd>
                         @Model.Gender.ToGender()
-                        @*@Html.DisplayFor(model => model.Gender)*@
                     </dd>
 
                     <dt>
@@ -77,16 +67,8 @@
 
                     <dd>
                         <img src="@Url.Action("GetImage",new { id=Model.MemberID} )" class="img-thumbnail" />
-                        @*@Html.DisplayFor(model => model.ProfilePic)*@
                     </dd>
 
-                    @*<dt>
-                            @Html.DisplayNameFor(model => model.ImageMimeType)
-                        </dt>
-
-                        <dd>
-                            @Html.DisplayFor(model => model.ImageMimeType)
-                        </dd>*@
 
                     <dt>
                         @Html.DisplayNameFor(model => model.PerCode)
@@ -94,8 +76,6 @@
 
                     <dd>
                         @Model.PerCode
-                        @*@Model.PerCode.GetDisplayName()*@
-                        @*@Html.DisplayFor(model => model.PerCode)*@
                     </dd>
 
                     <dt>
@@ -115,11 +95,101 @@
                     </dd>
 
                 </dl>
+            </div>*@
+
+            @*<div class="form-horizontal member-list">*@
+            <div>
+                <img src="@Url.Action("GetImage",new { id=Model.MemberID} )" class="img-thumbnail" style="width:200px;"/>
             </div>
+
+            <div class="">
+                <div>
+                    @Html.DisplayNameFor(model => model.Email)
+                </div>
+                <div class=" ">
+                    @Html.DisplayFor(model => model.Email)
+                </div>
+            </div>
+
+            <div class="">
+                <div>
+                    @Html.DisplayNameFor(model => model.NickName)
+                </div>
+                <div class=" ">
+                    @Html.DisplayFor(model => model.NickName)
+                </div>
+            </div>
+
+            <div class="">
+                <div>
+                    @Html.DisplayNameFor(model => model.Gender)
+                </div>
+                <div class=" ">
+                    @Model.Gender.ToGender()
+                </div>
+            </div>
+
+            <div class="">
+                <div>
+                    @Html.DisplayNameFor(model => model.Bday)
+                </div>
+                <div class=" ">
+                    @Html.DisplayFor(model => model.Bday)
+                </div>
+            </div>
+
+            <div class="">
+                <div>
+                    @Html.DisplayNameFor(model => model.ContactEmail)
+                </div>
+                <div class=" ">
+                    @Html.DisplayFor(model => model.ContactEmail)
+                </div>
+            </div>
+
+            <div class="">
+                <div>
+                    @Html.DisplayNameFor(model => model.CreateAt)
+                </div>
+                <div class=" ">
+                    @Html.DisplayFor(model => model.CreateAt)
+                </div>
+            </div>
+
+            <div class="">
+                <div>
+                    @Html.DisplayNameFor(model => model.PerCode)
+                </div>
+                <div class=" ">
+                    @*@Model.PerCode*@
+                    @Model.PerCode.GetDisplayName()
+                    @*@Html.DisplayFor(model => model.PerCode)*@
+                </div>
+            </div>
+
+            <div class="">
+                <div>
+                    @Html.DisplayNameFor(model => model.IsSuspended)
+                </div>
+                <div class=" ">
+                    @Html.DisplayFor(model => model.IsSuspended)
+                </div>
+            </div>
+
+            <div class="">
+                <div>
+                    @Html.DisplayNameFor(model => model.LastLogInTime)
+                </div>
+                <div class=" ">
+                    @Html.DisplayFor(model => model.LastLogInTime)
+                </div>
+            </div>
+
+        @*</div>*@
             <p>
                 @Html.ActionLink("更改權限", "Edit", new { id = Model.MemberID }) |
                 @Html.ActionLink("回到會員列表", "Index")
             </p>
+
         </div>
     </div>
-</div>

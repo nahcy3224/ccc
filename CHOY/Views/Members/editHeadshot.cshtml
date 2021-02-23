@@ -1,0 +1,127 @@
+﻿@model CHOY.Models.Member
+
+@{
+    ViewBag.Title = "剪裁大頭貼";
+}
+
+
+<h2>剪裁大頭貼</h2>
+
+<div class="page-container">
+    <label class="btn btn-info"><input id="upload_img" style="display:none;" type="file" accept="image/*">上傳圖片</label>
+
+    <div id="oldImg" style="display:none;"></div>
+
+    <button id="crop_img" class="btn btn-info">裁剪圖片</button>
+
+    <div id="newImg"></div>
+
+    @using (Html.BeginForm("editHeadshot", "Members", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <div class="form-group hidden">
+                @Html.LabelFor(model => model.ProfilePic, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input id="images" name="images" type="text" class="form-control" />
+                    @*@Html.EditorFor(model => model.ProfilePic, new { htmlAttributes = new { @class = "form-control" } })*@
+                    @Html.ValidationMessageFor(model => model.ProfilePic, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="保存圖片" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/croppie.min.js"></script>
+    <script>
+    var width_crop = 300, // 圖片裁切寬度 px 值
+        height_crop = 300, // 圖片裁切高度 px 值
+        type_crop = "square", // 裁切形狀: square 為方形, circle 為圓形
+        width_preview = 350, // 預覽區塊寬度 px 值
+        height_preview = 350, // 預覽區塊高度 px 值
+        compress_ratio = 1, // 圖片壓縮比例 0~1
+        type_img = "png", // 圖檔格式 jpeg png webp
+        oldImg = new Image(),
+        myCrop, file, oldImgDataUrl;
+
+    // 裁切初始參數設定
+    myCrop = $("#oldImg").croppie({
+        viewport: { // 裁切區塊
+            width: width_crop,
+            height: height_crop,
+            type: type_crop
+        },
+        boundary: { // 預覽區塊
+            width: width_preview,
+            height: height_preview
+        }
+    });
+
+    function readFile(input) {
+        if (input.files && input.files[0]) {
+            file = input.files[0];
+        } else {
+            alert("瀏覽器不支援此功能！建議使用最新版本 Chrome");
+            return;
+        }
+        if (file.type.indexOf("image") == 0) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                oldImgDataUrl = e.target.result;
+                oldImg.src = oldImgDataUrl; // 載入 oldImg 取得圖片資訊
+                myCrop.croppie("bind", {
+                    url: oldImgDataUrl
+                });
+            };
+            reader.readAsDataURL(file);
+        } else {
+            alert("您上傳的不是圖檔！");
+        }
+    }
+
+    function displayCropImg(src) {
+        var html = "<img src='" + src + "' />";
+        $("#newImg").html(html);
+    }
+/*
+        function displayCropImg(src) {
+            var html = "<img src='" + src + "' />";
+            $("#oldImg").html(html);
+        }
+*/
+
+    $("#upload_img").on("change", function () {
+        $("#oldImg").show();
+        readFile(this);
+    });
+
+    $("#crop_img").on("click", function () {
+        myCrop.croppie("result", {
+            type: "canvas",
+            format: type_img,
+            quality: compress_ratio
+        }).then(function (src) {
+           displayCropImg(src);
+            @*//console.log($('#images').val(src));
+            var formdata = new FormData();
+            formdata.append("base64image", src);
+            $.ajax({
+                url: @Url.Action("editHeadshot"),
+                type: "POST",
+                data: formdata
+            });*@
+            $('#images').attr('value', src);
+
+            console.log($('#images').val());
+        });
+    });
+    </script>
+}

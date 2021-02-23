@@ -71,6 +71,14 @@
 @model CHOY.Models.Bulletin
 
 @{
+    if (ViewBag.Who == 0)
+    {
+        Layout = "~/Views/Shared/_Layout_normal.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout_manager.cshtml";
+    }
     ViewBag.Title = "Bulletins";
     var d = Model.PublishStart.Date;
 }

@@ -1,0 +1,125 @@
+﻿@model CHOY.Models.MemberJoinProject
+
+@{
+    if (ViewBag.Who == 0)
+    {
+        Layout = "~/Views/Shared/_Layout_normal.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout_manager.cshtml";
+    }
+    ViewBag.Title = "Add Your Friends In The Project";
+}
+<div class="page-container">
+    <div class="index-inner">
+        <div>
+            @Html.ActionLink("← Back to Project List","Index","Project",null, new { @class = "page-back-btn" })
+        </div>
+        <h2 class="font-middle">Add Your Friends In The Project @ViewBag.ProjectName</h2>
+        @using (Html.BeginForm())
+        {
+    <div class="" id="commentTool">
+
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal ">
+            <hr />
+            @* @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                @Html.LabelFor(model => model.ProjectID, "ProjectID", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("ProjectID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ProjectID, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.MemberIDOwner, "MemberIDOwner", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("MemberIDOwner", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.MemberIDOwner, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.MemberIDJoin, "MemberIDJoin", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("MemberIDJoin", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.MemberIDJoin, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.MemberIDJoin, "MemberIDJoin", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.MemberIDJoin, new { htmlAttributes = new { @class = "form-control" } })
+
+                    @Html.ValidationMessageFor(model => model.MemberIDJoin, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+            <div class="form-group ">
+                <label class="control-label  col-md-6 ">Please enter Email or your existed Group.</label>
+                <div class="col-md-6">
+                    <input class="form-control" name="emailorgname" type="text" />
+                </div>
+                <span>@ViewBag.Message</span>
+            </div>
+
+
+
+            @*<div class="form-group">
+                <label class="control-label  col-md-2">請輸入群組名稱</label>
+                <div class="col-md-10">
+                    <input class="form-control" name="groupname" type="text" />
+                </div>
+            </div>*@
+
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.SharePerID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SharePerID, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SharePerID, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+
+
+
+
+        @*  <p>
+         <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+             Member In Project
+         </a>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+             Button with data-target
+         </button>
+        </p>
+
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body" id="agree">*@
+        <div class="text-center font-small">
+            Current Members in the Project
+
+            @*@Html.Action("_MemberInProject", "Project")*@
+            @Html.Action("_MemInProject", "MemberJoInProjects")
+
+        </div>
+    @*</div>
+        </div>*@
+
+
+
+
+    </div>
+        }
+    </div>
+</div>
+
+

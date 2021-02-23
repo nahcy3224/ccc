@@ -20,7 +20,8 @@ namespace CHOY
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/js4/bootstrap.js"));
+                      //"~/Scripts/js4/bootstrap.js",
+                      "~/Scripts/js4/bootstrap.bundle.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/css4/bootstrap.css",

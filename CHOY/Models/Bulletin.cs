@@ -28,7 +28,7 @@ namespace CHOY.Models
 
         [DisplayName("發佈結束時間")]
         [DataType(DataType.DateTime)]
-       [DisplayFormat(DataFormatString = "{0:00:00:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
+        [DisplayFormat(DataFormatString = "{0:00:00:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public System.DateTime PublishEnd { get; set; }
 
         [DisplayName("公告內容")]

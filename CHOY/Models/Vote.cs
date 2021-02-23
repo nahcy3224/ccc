@@ -15,9 +15,7 @@ namespace CHOY.Models
 
         [Key]
         [DisplayName("投票編號")]
-        [Required]
-        [RegularExpression("V[0-9]{4}")]
-        public string VoteID { get; set; } = "V0000";
+        public int VoteID { get; set; }
 
         [DisplayName("投票名稱")]
         [Required]
@@ -25,7 +23,7 @@ namespace CHOY.Models
         public string VoteName { get; set; }
 
         [DisplayName("投票結果")]
-        public string Result { get; set; }
+        public string Result { get; set; } = null;
 
         [DisplayName("總投票數")]
         public Nullable<int> VoteCount { get; set; }

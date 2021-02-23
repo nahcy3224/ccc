@@ -1,0 +1,408 @@
+﻿@model CHOY.Models.Member
+
+@{
+    if (ViewBag.Who == 0)
+    {
+        Layout = "~/Views/Shared/_Layout_normal.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout_manager.cshtml";
+    }
+    ViewBag.Title = "My Page -";
+}
+<div class="page-container personal-page">
+
+  <div class="">
+    <h4 class="font-large">@*Member*@</h4>
+
+    <div class="member-pic-container">
+      <img src="@Url.Action("GetImage", new { id = Model.MemberID })" class="member-pic" for="upload_img" data-toggle="modal" data-target="#changePIC" />
+    </div>
+
+    <div class="info-box">
+      <div>
+        <h2>Member Information</h2>
+        <button type="button" class="btn" data-toggle="modal" data-target="#changeInfo">
+          Edit
+        </button>
+      </div>
+
+      <div>
+        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label " })
+        <p>
+          @Html.DisplayFor(model => model.Email)
+        </p>
+      </div>
+
+      <div>
+        @Html.LabelFor(model => model.NickName, htmlAttributes: new { @class = "control-label" })
+        <p>@Html.DisplayFor(model => model.NickName)</p>
+      </div>
+
+      <div>
+        @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-labe" })
+        <p>
+          @Model.Gender.ToGenderEng()
+        </p>
+      </div>
+
+      <div>
+        @Html.LabelFor(model => model.Bday, htmlAttributes: new { @class = "control-label" })
+        <p>
+          @Html.DisplayFor(model => model.Bday, new { htmlAttributes = new { @class = "form-control" } })
+        </p>
+      </div>
+
+      <div>
+        @Html.LabelFor(model => model.ContactEmail, htmlAttributes: new { @class = "control-label" })
+        <p>
+          @Html.DisplayFor(model => model.ContactEmail)
+        </p>
+      </div>
+    </div>
+
+    @*<hr />*@
+
+    <div class="info-box">
+      <div>
+        <h2>Password</h2>
+        <span  class="text-center text-danger font-small">@ViewBag.Password</span>
+        <button type="button" class="btn" data-toggle="modal" data-target="#changePSW">
+          Edit
+        </button>
+      </div>
+      <p>
+        @Html.Raw("\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022")
+      </p>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="changePSW" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered ">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="font-middle">&times;</span>
+        </button>
+      </div>
+
+      <form method="POST" action="/Members/ChangePassword" onsubmit="return checkpwd()">
+
+        <div class="modal-body">
+          <h2 class="modal-title" id="staticBackdropLabel">Edit Password</h2>
+
+          @Html.AntiForgeryToken()
+          <div class="form-group">
+            <label for="opsw">Original Password</label>
+            <input id="opsw" name="opsw" type="password" class="form-control" />
+          </div>
+
+          <div class="form-group">
+            <label for="psw1">New Password</label>
+            <input id="psw1" name="psw1" type="password" class="form-control" />
+          </div>
+
+          <div class="form-group">
+            <label for="psw">Confirm New Password</label>
+            <input id="psw" name="psw2" type="password" class="form-control" />
+          </div>
+
+          <h2 id="errormsg" class="text-danger"></h2>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="changeInfo" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered">
+    <div class="modal-content">
+
+
+      <div class="modal-header">
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="font-middle">&times;</span>
+        </button>
+      </div>
+      @using (Html.BeginForm(null, null, FormMethod.Post, new
+      {
+        id = "editMemberForm",
+        onsubmit = "return checkEditMemberForm()"
+      }))
+      {
+        @Html.AntiForgeryToken()
+        <div class="modal-body">
+          <h2 class="modal-title font-small" id="staticBackdropLabel">Edit Member Information</h2>
+
+          <div class="">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.MemberID)
+
+
+            <div class="form-group">
+
+
+              <div>@Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label " })</div>
+
+              <p>@Html.DisplayFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })</p>
+
+            </div>
+
+            <div class="form-group">
+              <div>@Html.LabelFor(model => model.NickName, htmlAttributes: new { @class = "control-label" })</div>
+              @Html.EditorFor(model => model.NickName, new { htmlAttributes = new { @class = "form-control" } })
+              @*@Html.ValidationMessageFor(model => model.NickName, "", new { @class = "text-danger" })*@
+              
+            </div>
+            <h3 id="errorMsg-nickName" class="text-center text-danger"></h3>
+
+            <div class="form-group">
+              <div>@Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label" })</div>
+              <p>@Model.Gender.ToGenderEng()</p>
+            </div>
+
+            <div class="form-group">
+              <div>@Html.LabelFor(model => model.Bday, htmlAttributes: new { @class = "control-label" })</div>
+              <p>@Html.DisplayFor(model => model.Bday, new { htmlAttributes = new { @class = "form-control" } })</p>
+            </div>
+
+            <div class="form-group">
+              <div>@Html.LabelFor(model => model.ContactEmail, htmlAttributes: new { @class = "control-label" })</div>
+              @Html.EditorFor(model => model.ContactEmail, new { htmlAttributes = new { @class = "form-control" } })
+              @*@Html.ValidationMessageFor(model => model.ContactEmail, "", new { @class = "text-danger" })*@
+              
+            </div>
+
+            <h3 id="errorMsg-contactEmail"  class="text-center text-danger"></h3>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn ">Submit</button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="changePIC" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="font-middle">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+
+        <div id="oldImg" style="display:none;"></div>
+
+
+        <div id="newImg">
+          <img src="@Url.Action("GetImage", new { id = Model.MemberID })" />
+
+        </div>
+
+        @using (Html.BeginForm("editHeadshot", "Members", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+          @Html.AntiForgeryToken()
+
+          <div class="form-horizontal">
+
+            <div class="form-group hidden">
+              @Html.LabelFor(model => model.ProfilePic, htmlAttributes: new { @class = "control-label col-md-2" })
+              <div class="">
+                <input id="images" name="images" type="text" class="" />
+                @Html.ValidationMessageFor(model => model.ProfilePic, "", new { @class = "text-danger" })
+              </div>
+            </div>
+
+          </div>
+          @*<div class="">
+                <input type="submit" value="保存圖片" class="btn" />
+            </div>*@
+
+
+          <div class="img-btn-box">
+            <input id="save_img" type="submit" value=" Save " class="btn" style="display:none;" />
+
+            <label class="btn"><input id="upload_img" style="display:none;" type="file" accept="image/*">Upload</label>
+            <span id="crop_img" class="btn" style="display:none;">&ensp;Crop&ensp;</span>
+
+          </div>
+
+
+        }
+      </div>
+      @*<div class="modal-footer">
+
+        </div>*@
+    </div>
+  </div>
+</div>
+
+
+
+@section scripts
+{
+  <script src="~/Scripts/choy/common.js"></script>
+  <script src="~/Scripts/croppie.min.js"></script>
+  <script>
+    var width_crop = 300, // 圖片裁切寬度 px 值
+      height_crop = 300, // 圖片裁切高度 px 值
+      type_crop = "circle", // 裁切形狀: square 為方形, circle 為圓形
+      width_preview = 350, // 預覽區塊寬度 px 值
+      height_preview = 350, // 預覽區塊高度 px 值
+      compress_ratio = 1, // 圖片壓縮比例 0~1
+      type_img = "png", // 圖檔格式 jpeg png webp
+      oldImg = new Image(),
+      myCrop, file, oldImgDataUrl;
+
+    // 裁切初始參數設定
+    myCrop = $("#oldImg").croppie({
+      viewport: { // 裁切區塊
+        width: width_crop,
+        height: height_crop,
+        type: type_crop
+      },
+      boundary: { // 預覽區塊
+        width: width_preview,
+        height: height_preview
+      }
+    });
+
+    function readFile(input) {
+      if (input.files && input.files[0]) {
+        file = input.files[0];
+      } else {
+        alert("瀏覽器不支援此功能！建議使用最新版本 Chrome");
+        return;
+      }
+      if (file.type.indexOf("image") == 0) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          oldImgDataUrl = e.target.result;
+          oldImg.src = oldImgDataUrl; // 載入 oldImg 取得圖片資訊
+          myCrop.croppie("bind", {
+            url: oldImgDataUrl
+          });
+        };
+        reader.readAsDataURL(file);
+      } else {
+        alert("您上傳的不是圖檔！");
+      }
+    }
+    /*
+        function displayCropImg(src) {
+            var html = "<img src='" + src + "' />";
+            $("#newImg").html(html);
+        }
+     */
+    //$('.member-pic').on("click", function () {
+    //    $("#crop_img").hide();
+    //    $('#save_img').hide();
+    //})
+
+    function displayCropImg(src) {
+      var html = "<img src='" + src + "' />";
+      $("#newImg").html(html);
+    }
+
+    $("#upload_img").on("change", function () {
+      $("#oldImg").show();
+      $('#crop_img').show();
+        $("#newImg").hide();
+        $("#save_img").hide();
+      readFile(this);
+    });
+
+    $("#crop_img").on("click", function () {
+      $("#newImg").show();
+
+      myCrop.croppie("result", {
+        type: "canvas",
+        format: type_img,
+        quality: compress_ratio
+      }).then(function (src) {
+        displayCropImg(src);
+
+        $('#images').attr('value', src);
+
+        console.log($('#images').val());
+      });
+      $("#oldImg").hide();
+      $("#crop_img").hide();
+      $("#save_img").show();
+    });
+
+    $("#save_img").on("click", function () {
+      $("#save_img").hide();
+    })
+
+
+
+
+
+
+    function checkEditMemberForm() {
+      const nickName = document.getElementById('NickName')
+      const contactEmail = document.getElementById('ContactEmail')
+      const errorMsg_nickName = document.getElementById('errorMsg-nickName')
+      const errorMsg_contactEmail = document.getElementById('errorMsg-contactEmail')
+
+      if (nickName.value.length > 15) {
+          errorMsg_nickName.innerText = "Your nickname cannot be longer than 15 characters."
+        return false
+      }
+
+      if (!checkEmail(contactEmail.value)) {
+          errorMsg_contactEmail.innerText = "Wrong email format."
+        return false
+      }
+
+      return true
+    }
+
+
+    function checkpwd() {
+      const opsw = document.getElementById("opsw").value
+      const pwd1 = document.getElementById("psw1").value
+      const pwd = document.getElementById("psw").value
+      const errorMsg = document.getElementById("errormsg")
+
+      function __checkpwd(pwd) {
+        return (pwd.length < 6 || pwd.length > 18) ? false : true
+      }
+
+      if (!__checkpwd(opsw) || !__checkpwd(pwd1)) {
+        errorMsg.innerText = "Your password must be between 6 and 18 characters";
+        return false;
+      }
+
+      if (pwd1 !== pwd) {
+        errorMsg.innerText = "New Password is different from Confirmed New Password."
+        return false
+      }
+
+      return true
+    }
+  </script>
+}
